@@ -1,0 +1,95 @@
+[
+  {
+    "Id": 1,
+    "customerId": 1,
+    "customerName": "Rajesh Trading Co.",
+    "orderDate": "2024-01-15T10:30:00Z",
+    "items": [
+      {
+        "productId": 1,
+        "productName": "Dishooom Premium Handwash",
+        "quantity": 20,
+        "unitPrice": 35.00,
+        "total": 700.00
+      },
+      {
+        "productId": 3,
+        "productName": "Dish Magic Liquid", 
+        "quantity": 15,
+        "unitPrice": 32.00,
+        "total": 480.00
+      }
+    ],
+    "totalAmount": 1180.00,
+    "paymentStatus": "paid",
+    "invoiceNumber": "INV-2024-0001"
+  },
+  {
+    "Id": 2,
+    "customerId": 2,
+    "customerName": "Clean Max Distributors",
+    "orderDate": "2024-01-20T14:15:00Z",
+    "items": [
+      {
+        "productId": 2,
+        "productName": "FloorClean Phenyl",
+        "quantity": 50,
+        "unitPrice": 28.00,
+        "total": 1400.00
+      },
+      {
+        "productId": 4,
+        "productName": "AutoShine Car Wash",
+        "quantity": 10,
+        "unitPrice": 65.00,
+        "total": 650.00
+      }
+    ],
+    "totalAmount": 2050.00,
+    "paymentStatus": "partial",
+    "invoiceNumber": "INV-2024-0002"
+  },
+  {
+    "Id": 3,
+    "customerId": 4,
+    "customerName": "SuperClean Enterprises",
+    "orderDate": "2024-01-28T16:45:00Z",
+    "items": [
+      {
+        "productId": 5,
+        "productName": "Fresh Breeze Room Freshener",
+        "quantity": 30,
+        "unitPrice": 42.00,
+        "total": 1260.00
+      }
+    ],
+    "totalAmount": 1260.00,
+    "paymentStatus": "pending",
+    "invoiceNumber": "INV-2024-0003"
+  },
+  {
+    "Id": 4,
+    "customerId": 1,
+    "customerName": "Rajesh Trading Co.",
+    "orderDate": "2024-01-30T11:20:00Z",
+    "items": [
+      {
+        "productId": 1,
+        "productName": "Dishooom Premium Handwash",
+        "quantity": 25,
+        "unitPrice": 35.00,
+        "total": 875.00
+      },
+      {
+        "productId": 2,
+        "productName": "FloorClean Phenyl",
+        "quantity": 20,
+        "unitPrice": 28.00,
+        "total": 560.00
+      }
+    ],
+    "totalAmount": 1435.00,
+    "paymentStatus": "paid",
+    "invoiceNumber": "INV-2024-0004"
+  }
+]

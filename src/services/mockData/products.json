@@ -1,0 +1,72 @@
+[
+  {
+    "Id": 1,
+    "name": "Dishooom Premium Handwash",
+    "type": "Handwash", 
+    "category": "Personal Care",
+    "currentStock": 150,
+    "minStock": 50,
+    "unit": "bottles",
+    "isWhiteLabelled": false,
+    "batchDate": "2024-01-15",
+    "expiryDate": "2025-01-15",
+    "costPrice": 25.50,
+    "sellingPrice": 35.00
+  },
+  {
+    "Id": 2,
+    "name": "FloorClean Phenyl",
+    "type": "Phenyl",
+    "category": "Floor Care", 
+    "currentStock": 25,
+    "minStock": 30,
+    "unit": "bottles",
+    "isWhiteLabelled": true,
+    "batchDate": "2024-02-01",
+    "expiryDate": "2025-02-01",
+    "costPrice": 18.00,
+    "sellingPrice": 28.00
+  },
+  {
+    "Id": 3,
+    "name": "Dish Magic Liquid",
+    "type": "Dish Wash",
+    "category": "Kitchen Care",
+    "currentStock": 200,
+    "minStock": 75,
+    "unit": "bottles",
+    "isWhiteLabelled": false,
+    "batchDate": "2024-01-20",
+    "expiryDate": "2025-01-20",
+    "costPrice": 22.00,
+    "sellingPrice": 32.00
+  },
+  {
+    "Id": 4,
+    "name": "AutoShine Car Wash",
+    "type": "Car Wash",
+    "category": "Automotive",
+    "currentStock": 80,
+    "minStock": 40,
+    "unit": "bottles",
+    "isWhiteLabelled": false,
+    "batchDate": "2024-02-10",
+    "expiryDate": "2025-02-10",
+    "costPrice": 45.00,
+    "sellingPrice": 65.00
+  },
+  {
+    "Id": 5,
+    "name": "Fresh Breeze Room Freshener",
+    "type": "Room Freshener",
+    "category": "Air Care",
+    "currentStock": 120,
+    "minStock": 60,
+    "unit": "bottles",
+    "isWhiteLabelled": false,
+    "batchDate": "2024-01-25",
+    "expiryDate": "2025-01-25",
+    "costPrice": 30.00,
+    "sellingPrice": 42.00
+  }
+]

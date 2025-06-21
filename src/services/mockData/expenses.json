@@ -1,0 +1,50 @@
+[
+  {
+    "Id": 1,
+    "category": "Raw Materials",
+    "amount": 15000.00,
+    "date": "2024-01-10T09:00:00Z",
+    "description": "Chemical compounds for handwash production",
+    "vendor": "ChemSupply Ltd"
+  },
+  {
+    "Id": 2,
+    "category": "Packaging",
+    "amount": 5000.00,
+    "date": "2024-01-12T14:30:00Z",
+    "description": "Bottles and labels for January batch",
+    "vendor": "PackSolutions"
+  },
+  {
+    "Id": 3,
+    "category": "Transport",
+    "amount": 2500.00,
+    "date": "2024-01-15T16:00:00Z",
+    "description": "Delivery charges for customer orders",
+    "vendor": "LogiTrucks"
+  },
+  {
+    "Id": 4,
+    "category": "Marketing",
+    "amount": 3500.00,
+    "date": "2024-01-18T11:15:00Z",
+    "description": "Print advertisements and brochures",
+    "vendor": "AdPrint Media"
+  },
+  {
+    "Id": 5,
+    "category": "Utilities",
+    "amount": 1800.00,
+    "date": "2024-01-20T08:45:00Z",
+    "description": "Electricity bill for manufacturing unit",
+    "vendor": "State Electricity Board"
+  },
+  {
+    "Id": 6,
+    "category": "Equipment",
+    "amount": 12000.00,
+    "date": "2024-01-25T13:20:00Z",
+    "description": "Maintenance of mixing equipment",
+    "vendor": "TechMaintain Services"
+  }
+]

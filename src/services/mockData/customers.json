@@ -1,0 +1,62 @@
+[
+  {
+    "Id": 1,
+    "name": "Rajesh Trading Co.",
+    "phone": "+91 98765 43210",
+    "email": "rajesh@rajeshtrading.com",
+    "type": "Retailer",
+    "pipelineStage": "contacted",
+    "assignedTo": "Sales Rep 1",
+    "lastContact": "2024-01-15T10:30:00Z",
+    "address": "Shop 15, Market Street, Mumbai",
+    "gstNumber": "27ABCDE1234F1Z5"
+  },
+  {
+    "Id": 2,
+    "name": "Clean Max Distributors",
+    "phone": "+91 87654 32109",
+    "email": "info@cleanmax.com",
+    "type": "Reseller", 
+    "pipelineStage": "closed",
+    "assignedTo": "Sales Rep 2",
+    "lastContact": "2024-01-20T14:15:00Z",
+    "address": "Warehouse 7, Industrial Area, Pune",
+    "gstNumber": "27FGHIJ5678K2L6"
+  },
+  {
+    "Id": 3,
+    "name": "Home Care Solutions",
+    "phone": "+91 76543 21098",
+    "email": "orders@homecaresolutions.in",
+    "type": "Retailer",
+    "pipelineStage": "new",
+    "assignedTo": "Sales Rep 1",
+    "lastContact": "1/25/2024 9:00:00 AMZ",
+    "address": "12 Gandhi Road, Delhi",
+    "gstNumber": "07MNOPQ9012R3S4"
+  },
+  {
+    "Id": 4,
+    "name": "SuperClean Enterprises",
+    "phone": "+91 65432 10987",
+    "email": "procurement@superclean.co.in",
+    "type": "Reseller",
+    "pipelineStage": "contacted",
+    "assignedTo": "Sales Rep 2", 
+    "lastContact": "2024-01-28T16:45:00Z",
+    "address": "Plot 45, MIDC Area, Nashik",
+    "gstNumber": "27TUVWX3456Y7Z8"
+  },
+  {
+    "Id": 5,
+    "name": "City Mart",
+    "phone": "+91 54321 09876",
+    "email": "manager@citymart.com",
+    "type": "Retailer",
+    "pipelineStage": "new",
+    "assignedTo": "Sales Rep 1",
+    "lastContact": "2024-01-30T11:20:00Z",
+    "address": "Shop Complex, Station Road, Bangalore",
+    "gstNumber": "29ABCXY1234Z5F6"
+  }
+]
