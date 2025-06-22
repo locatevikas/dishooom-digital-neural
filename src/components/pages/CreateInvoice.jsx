@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Button from '@/components/atoms/Button';
 import Select from '@/components/atoms/Select';
+import Input from '@/components/atoms/Input';
 import ApperIcon from '@/components/ApperIcon';
 import customerService from '@/services/api/customerService';
 import productService from '@/services/api/productService';
-import salesOrderService from '@/services/api/salesOrderService';
+import invoiceService from '@/services/api/invoiceService';
 
-const CreateSalesOrder = () => {
+const CreateInvoice = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [customers, setCustomers] = useState([]);
@@ -17,11 +18,14 @@ const CreateSalesOrder = () => {
   const [formData, setFormData] = useState({
     customerId: '',
     customerName: '',
-    paymentStatus: 'pending'
+    paymentStatus: 'pending',
+    notes: '',
+    orderId: ''
   });
-  const [orderItems, setOrderItems] = useState([
+  const [invoiceItems, setInvoiceItems] = useState([
     { productId: '', productName: '', quantity: 1, unitPrice: 0, total: 0 }
   ]);
+  const [taxRate, setTaxRate] = useState(18); // 18% GST
 
   useEffect(() => {
     loadData();
@@ -67,7 +71,7 @@ const CreateSalesOrder = () => {
   };
 
   const handleItemChange = (index, field, value) => {
-    const newItems = [...orderItems];
+    const newItems = [...invoiceItems];
     newItems[index][field] = value;
 
     if (field === 'productId') {
@@ -81,21 +85,29 @@ const CreateSalesOrder = () => {
       newItems[index].total = newItems[index].quantity * newItems[index].unitPrice;
     }
 
-    setOrderItems(newItems);
+    setInvoiceItems(newItems);
   };
 
   const addItem = () => {
-    setOrderItems([...orderItems, { productId: '', productName: '', quantity: 1, unitPrice: 0, total: 0 }]);
+    setInvoiceItems([...invoiceItems, { productId: '', productName: '', quantity: 1, unitPrice: 0, total: 0 }]);
   };
 
   const removeItem = (index) => {
-    if (orderItems.length > 1) {
-      setOrderItems(orderItems.filter((_, i) => i !== index));
+    if (invoiceItems.length > 1) {
+      setInvoiceItems(invoiceItems.filter((_, i) => i !== index));
     }
   };
 
+  const calculateSubtotal = () => {
+    return invoiceItems.reduce((sum, item) => sum + item.total, 0);
+  };
+
+  const calculateTax = () => {
+    return (calculateSubtotal() * taxRate) / 100;
+  };
+
   const calculateTotal = () => {
-    return orderItems.reduce((sum, item) => sum + item.total, 0);
+    return calculateSubtotal() + calculateTax();
   };
 
   const validateForm = () => {
@@ -104,13 +116,13 @@ const CreateSalesOrder = () => {
       return false;
     }
 
-    if (orderItems.length === 0 || !orderItems[0].productId) {
+    if (invoiceItems.length === 0 || !invoiceItems[0].productId) {
       toast.error('Please add at least one product');
       return false;
     }
 
-    for (let i = 0; i < orderItems.length; i++) {
-      const item = orderItems[i];
+    for (let i = 0; i < invoiceItems.length; i++) {
+      const item = invoiceItems[i];
       if (!item.productId || item.quantity <= 0) {
         toast.error(`Please check item ${i + 1}`);
         return false;
@@ -127,19 +139,23 @@ const CreateSalesOrder = () => {
 
     setLoading(true);
     try {
-      const orderData = {
+      const invoiceData = {
         customerId: formData.customerId,
         customerName: formData.customerName,
         paymentStatus: formData.paymentStatus,
-        items: orderItems.filter(item => item.productId),
-        totalAmount: calculateTotal()
+        orderId: formData.orderId || null,
+        items: invoiceItems.filter(item => item.productId),
+        subtotal: calculateSubtotal(),
+        taxAmount: calculateTax(),
+        totalAmount: calculateTotal(),
+        notes: formData.notes
       };
 
-      await salesOrderService.create(orderData);
-      toast.success('Sales order created successfully!');
+      await invoiceService.create(invoiceData);
+      toast.success('Invoice created successfully!');
       navigate('/sales');
     } catch (error) {
-      toast.error(`Failed to create order: ${error.message}`);
+      toast.error(`Failed to create invoice: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -158,9 +174,9 @@ const CreateSalesOrder = () => {
           >
             <ApperIcon name="ArrowLeft" size={20} />
           </Button>
-<div>
-            <h1 className="text-xl font-bold text-gray-900">Create Sales Order</h1>
-            <p className="text-sm text-gray-600">Create new sales order for tracking</p>
+          <div>
+            <h1 className="text-xl font-bold text-gray-900">Create Invoice</h1>
+            <p className="text-sm text-gray-600">Generate new invoice for billing</p>
           </div>
         </div>
       </div>
@@ -197,12 +213,20 @@ const CreateSalesOrder = () => {
                 required
               />
             </div>
+
+            <Input
+              label="Related Order ID (Optional)"
+              name="orderId"
+              value={formData.orderId}
+              onChange={(e) => setFormData(prev => ({ ...prev, orderId: e.target.value }))}
+              placeholder="Enter order ID if applicable"
+            />
           </div>
 
-          {/* Order Items */}
+          {/* Invoice Items */}
           <div className="bg-white rounded-lg p-4 space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-gray-900">Order Items</h3>
+              <h3 className="font-semibold text-gray-900">Invoice Items</h3>
               <Button
                 type="button"
                 variant="outline"
@@ -216,7 +240,7 @@ const CreateSalesOrder = () => {
             </div>
 
             <div className="space-y-4">
-              {orderItems.map((item, index) => (
+              {invoiceItems.map((item, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
@@ -225,7 +249,7 @@ const CreateSalesOrder = () => {
                 >
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-sm font-medium text-gray-700">Item {index + 1}</span>
-                    {orderItems.length > 1 && (
+                    {invoiceItems.length > 1 && (
                       <Button
                         type="button"
                         variant="ghost"
@@ -294,13 +318,60 @@ const CreateSalesOrder = () => {
             </div>
           </div>
 
-          {/* Order Summary */}
-          <div className="bg-white rounded-lg p-4">
-            <h3 className="font-semibold text-gray-900 mb-4">Order Summary</h3>
-            <div className="flex justify-between items-center text-lg">
-              <span className="font-medium">Total Amount:</span>
-              <span className="font-bold text-primary">₹{calculateTotal().toLocaleString()}</span>
+          {/* Tax Configuration */}
+          <div className="bg-white rounded-lg p-4 space-y-4">
+            <h3 className="font-semibold text-gray-900">Tax Configuration</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Tax Rate (%)
+                </label>
+                <input
+                  type="number"
+                  value={taxRate}
+                  onChange={(e) => setTaxRate(parseFloat(e.target.value) || 0)}
+                  min="0"
+                  max="100"
+                  step="0.1"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                />
+              </div>
             </div>
+          </div>
+
+          {/* Invoice Summary */}
+          <div className="bg-white rounded-lg p-4 space-y-3">
+            <h3 className="font-semibold text-gray-900">Invoice Summary</h3>
+            <div className="space-y-2">
+              <div className="flex justify-between">
+                <span>Subtotal:</span>
+                <span>₹{calculateSubtotal().toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Tax ({taxRate}%):</span>
+                <span>₹{calculateTax().toLocaleString()}</span>
+              </div>
+              <div className="border-t pt-2">
+                <div className="flex justify-between items-center text-lg font-semibold">
+                  <span>Total Amount:</span>
+                  <span className="text-primary">₹{calculateTotal().toLocaleString()}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Notes */}
+          <div className="bg-white rounded-lg p-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Notes (Optional)
+            </label>
+            <textarea
+              value={formData.notes}
+              onChange={(e) => setFormData(prev => ({ ...prev, notes: e.target.value }))}
+              placeholder="Add any additional notes or terms..."
+              rows="3"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+            />
           </div>
 
           {/* Submit Buttons */}
@@ -318,7 +389,7 @@ const CreateSalesOrder = () => {
               fullWidth
               loading={loading}
             >
-              Create Order
+              Create Invoice
             </Button>
           </div>
         </motion.form>
@@ -327,4 +398,4 @@ const CreateSalesOrder = () => {
   );
 };
 
-export default CreateSalesOrder;
+export default CreateInvoice;

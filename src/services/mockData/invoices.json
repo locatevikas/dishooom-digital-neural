@@ -1,0 +1,59 @@
+[
+  {
+    "Id": 1,
+    "invoiceNumber": "INV-2024-0001",
+    "orderId": 1,
+    "customerId": 1,
+    "customerName": "Rajesh Kumar",
+    "invoiceDate": "2024-01-15T10:30:00Z",
+    "dueDate": "2024-02-14T10:30:00Z",
+    "paymentStatus": "pending",
+    "items": [
+      {
+        "productId": 1,
+        "productName": "Basmati Rice Premium",
+        "quantity": 2,
+        "unitPrice": 150,
+        "total": 300
+      }
+    ],
+    "subtotal": 300,
+    "taxAmount": 54,
+    "totalAmount": 354,
+    "notes": "Please pay within 30 days",
+    "createdAt": "2024-01-15T10:30:00Z",
+    "updatedAt": "2024-01-15T10:30:00Z"
+  },
+  {
+    "Id": 2,
+    "invoiceNumber": "INV-2024-0002",
+    "orderId": 2,
+    "customerId": 2,
+    "customerName": "Priya Sharma",
+    "invoiceDate": "2024-01-16T14:20:00Z",
+    "dueDate": "2024-02-15T14:20:00Z",
+    "paymentStatus": "paid",
+    "items": [
+      {
+        "productId": 2,
+        "productName": "Whole Wheat Flour",
+        "quantity": 3,
+        "unitPrice": 80,
+        "total": 240
+      },
+      {
+        "productId": 3,
+        "productName": "Organic Turmeric Powder",
+        "quantity": 1,
+        "unitPrice": 120,
+        "total": 120
+      }
+    ],
+    "subtotal": 360,
+    "taxAmount": 64.8,
+    "totalAmount": 424.8,
+    "notes": "Thank you for your business",
+    "createdAt": "2024-01-16T14:20:00Z",
+    "updatedAt": "2024-01-18T09:15:00Z"
+  }
+]
