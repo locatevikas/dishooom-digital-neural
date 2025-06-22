@@ -401,14 +401,174 @@ const reportService = {
     });
   },
 
-  async exportReport(reportType, format, startDate, endDate) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        // Simulate export functionality
-        console.log(`Exporting ${reportType} report as ${format} for period ${startDate} to ${endDate}`);
-        resolve();
-      }, 500);
+async exportReport(reportType, format, startDate, endDate) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        setTimeout(async () => {
+          // Get the report data
+          let reportData;
+          switch (reportType) {
+            case 'sales':
+              reportData = await this.getSalesReport(startDate, endDate);
+              break;
+            case 'expenses':
+              reportData = await this.getExpenseReport(startDate, endDate);
+              break;
+            case 'inventory':
+              reportData = await this.getInventoryReport();
+              break;
+            case 'overview':
+              reportData = await this.getBusinessOverview(startDate, endDate);
+              break;
+            default:
+              reportData = await this.getSalesReport(startDate, endDate);
+          }
+
+          if (format === 'csv') {
+            // Generate CSV
+            const csvContent = this.generateCSV(reportData, reportType);
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `${reportType}-report-${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+          } else if (format === 'pdf') {
+            // Generate PDF using jsPDF
+            const { jsPDF } = await import('jspdf');
+            const doc = new jsPDF();
+            
+            // Title
+            doc.setFontSize(20);
+            doc.text(`${reportType.charAt(0).toUpperCase() + reportType.slice(1)} Report`, 20, 30);
+            
+            // Date range
+            const dateStr = startDate && endDate ? 
+              `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}` : 
+              'All Time';
+            doc.setFontSize(12);
+            doc.text(`Period: ${dateStr}`, 20, 45);
+            
+            // Metrics
+            let yPos = 65;
+            doc.setFontSize(14);
+            doc.text('Key Metrics:', 20, yPos);
+            yPos += 10;
+            
+            doc.setFontSize(10);
+            reportData.metrics?.forEach(metric => {
+              doc.text(`${metric.title}: ${metric.value}`, 20, yPos);
+              yPos += 8;
+            });
+            
+            // Table data
+            if (reportData.tableData && reportData.tableData.rows) {
+              yPos += 15;
+              doc.setFontSize(14);
+              doc.text(reportData.tableTitle || 'Details:', 20, yPos);
+              yPos += 10;
+              
+              doc.setFontSize(9);
+              // Headers
+              if (reportData.tableData.headers) {
+                let xPos = 20;
+                reportData.tableData.headers.forEach(header => {
+                  doc.text(header, xPos, yPos);
+                  xPos += 60;
+                });
+                yPos += 8;
+              }
+              
+              // Rows
+              reportData.tableData.rows.forEach(row => {
+                let xPos = 20;
+                row.forEach(cell => {
+                  doc.text(String(cell), xPos, yPos);
+                  xPos += 60;
+                });
+                yPos += 6;
+                if (yPos > 270) { // Page break
+                  doc.addPage();
+                  yPos = 20;
+                }
+              });
+            }
+            
+            // Summary
+            if (reportData.summary) {
+              yPos += 15;
+              doc.setFontSize(12);
+              doc.text('Summary:', 20, yPos);
+              yPos += 10;
+              doc.setFontSize(9);
+              const summaryLines = reportData.summary.split('\n');
+              summaryLines.forEach(line => {
+                if (line.trim()) {
+                  doc.text(line, 20, yPos);
+                  yPos += 6;
+                }
+              });
+            }
+            
+            doc.save(`${reportType}-report-${new Date().toISOString().split('T')[0]}.pdf`);
+          }
+
+          resolve({
+            success: true,
+            format,
+            filename: `${reportType}-report-${new Date().toISOString().split('T')[0]}.${format}`
+          });
+        }, 500);
+      } catch (error) {
+        reject(error);
+      }
     });
+  },
+
+  generateCSV(reportData, reportType) {
+    let csvContent = `${reportType.charAt(0).toUpperCase() + reportType.slice(1)} Report\n`;
+    csvContent += `Generated on: ${new Date().toLocaleDateString()}\n\n`;
+    
+    // Metrics
+    if (reportData.metrics) {
+      csvContent += 'Key Metrics\n';
+      csvContent += 'Metric,Value,Trend\n';
+      reportData.metrics.forEach(metric => {
+        csvContent += `"${metric.title}","${metric.value}","${metric.trendValue || ''}"\n`;
+      });
+      csvContent += '\n';
+    }
+    
+    // Table data
+    if (reportData.tableData) {
+      csvContent += `${reportData.tableTitle || 'Details'}\n`;
+      if (reportData.tableData.headers) {
+        csvContent += reportData.tableData.headers.map(h => `"${h}"`).join(',') + '\n';
+      }
+      if (reportData.tableData.rows) {
+        reportData.tableData.rows.forEach(row => {
+          csvContent += row.map(cell => `"${cell}"`).join(',') + '\n';
+        });
+      }
+      csvContent += '\n';
+    }
+    
+    // Summary
+    if (reportData.summary) {
+      csvContent += 'Summary\n';
+      const summaryLines = reportData.summary.split('\n');
+      summaryLines.forEach(line => {
+        if (line.trim()) {
+          csvContent += `"${line}"\n`;
+        }
+      });
+    }
+    
+    return csvContent;
   }
 };
 
