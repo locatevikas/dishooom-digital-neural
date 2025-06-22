@@ -325,7 +325,7 @@ const Reports = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
-            {/* Report Header */}
+{/* Report Header */}
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6 bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
               <div className="flex items-center gap-4 mb-4 lg:mb-0">
                 <Button
@@ -351,15 +351,90 @@ const Reports = () => {
                 </div>
               </div>
               
-              <div className="flex flex-wrap gap-3">
-                <Button
-                  variant="outline"
-                  onClick={() => setShowFilters(!showFilters)}
-                  className="flex items-center gap-2"
-                >
-                  <ApperIcon name="Filter" size={16} />
-                  Filters
-                </Button>
+              <div className="flex flex-wrap items-center gap-4">
+                {/* Date Selection */}
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
+                    <ApperIcon name="Calendar" size={16} className="text-gray-600" />
+                    <span className="text-sm font-medium text-gray-700">Date:</span>
+                  </div>
+                  <Select
+                    value={dateRange}
+                    onChange={(e) => setDateRange(e.target.value)}
+                    className="min-w-[140px]"
+                  >
+                    {dateRanges.map((range) => (
+                      <option key={range.value} value={range.value}>
+                        {range.label}
+                      </option>
+                    ))}
+                  </Select>
+                </div>
+
+                {/* Custom Date Inputs */}
+                {dateRange === 'custom' && (
+                  <div className="flex items-center gap-2">
+                    <Input
+                      type="date"
+                      value={customStartDate}
+                      onChange={(e) => setCustomStartDate(e.target.value)}
+                      className="w-auto"
+                      placeholder="Start Date"
+                    />
+                    <span className="text-gray-400">to</span>
+                    <Input
+                      type="date"
+                      value={customEndDate}
+                      onChange={(e) => setCustomEndDate(e.target.value)}
+                      className="w-auto"
+                      placeholder="End Date"
+                    />
+                  </div>
+                )}
+
+                {/* Export Dropdown */}
+                <div className="relative">
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowFilters(!showFilters)}
+                    disabled={!reportData}
+                    className="flex items-center gap-2"
+                  >
+                    <ApperIcon name="Download" size={16} />
+                    Export
+                    <ApperIcon name="ChevronDown" size={14} />
+                  </Button>
+                  
+                  {showFilters && (
+                    <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                      <div className="p-2">
+                        {exportFormats.map((format) => (
+                          <Button
+                            key={format.value}
+                            variant="ghost"
+                            onClick={() => {
+                              handleExport(format.value);
+                              setShowFilters(false);
+                            }}
+                            disabled={!reportData || exportLoading}
+                            className="w-full justify-start p-3 h-auto"
+                          >
+                            <div className="flex items-center gap-3">
+                              <ApperIcon name={format.icon} size={18} />
+                              <div className="text-left">
+                                <div className="font-medium text-sm">{format.label}</div>
+                                <div className="text-xs text-gray-500">{format.description}</div>
+                              </div>
+                            </div>
+                            {exportLoading && <div className="ml-auto w-4 h-4 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin" />}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Refresh Button */}
                 <Button
                   onClick={() => loadReportData(selectedReport)}
                   disabled={loading}
@@ -370,101 +445,6 @@ const Reports = () => {
                 </Button>
               </div>
             </div>
-
-            {/* Filters */}
-            <AnimatePresence>
-              {showFilters && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Card className="mb-6 border border-gray-200">
-                    <div className="p-6">
-                      <div className="flex items-center gap-2 mb-4">
-                        <ApperIcon name="Settings" size={20} className="text-gray-700" />
-                        <h3 className="text-lg font-semibold text-gray-900">Report Configuration</h3>
-                      </div>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-3">
-                            Time Period
-                          </label>
-                          <Select
-                            value={dateRange}
-                            onChange={(e) => setDateRange(e.target.value)}
-                            className="w-full"
-                          >
-                            {dateRanges.map((range) => (
-                              <option key={range.value} value={range.value}>
-                                {range.label}
-                              </option>
-                            ))}
-                          </Select>
-                        </div>
-                        
-                        {dateRange === 'custom' && (
-                          <>
-                            <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-3">
-                                Start Date
-                              </label>
-                              <Input
-                                type="date"
-                                value={customStartDate}
-                                onChange={(e) => setCustomStartDate(e.target.value)}
-                                className="w-full"
-                              />
-                            </div>
-                            <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-3">
-                                End Date
-                              </label>
-                              <Input
-                                type="date"
-                                value={customEndDate}
-                                onChange={(e) => setCustomEndDate(e.target.value)}
-                                className="w-full"
-                              />
-                            </div>
-                          </>
-                        )}
-                      </div>
-                      
-                      {/* Export Options */}
-                      <div className="mt-6 pt-6 border-t border-gray-200">
-                        <div className="flex items-center gap-2 mb-4">
-                          <ApperIcon name="Download" size={20} className="text-gray-700" />
-                          <h4 className="text-md font-semibold text-gray-900">Export Options</h4>
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          {exportFormats.map((format) => (
-                            <Button
-                              key={format.value}
-                              variant="outline"
-                              onClick={() => handleExport(format.value)}
-                              disabled={!reportData || exportLoading}
-                              className="flex items-center justify-between p-4 h-auto"
-                            >
-                              <div className="flex items-center gap-3">
-                                <ApperIcon name={format.icon} size={20} />
-                                <div className="text-left">
-                                  <div className="font-medium">{format.label}</div>
-                                  <div className="text-sm text-gray-500">{format.description}</div>
-                                </div>
-                              </div>
-                              {exportLoading && <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin" />}
-                            </Button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                </motion.div>
-              )}
-            </AnimatePresence>
 
             {/* Loading State */}
             {loading && (
