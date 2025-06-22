@@ -1,9 +1,8 @@
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import React from "react";
-import { routes } from "@/config/routes";
+import { routeArray, routes } from "@/config/routes";
 import ApperIcon from "@/components/ApperIcon";
-
 const Layout = () => {
   const location = useLocation();
   
