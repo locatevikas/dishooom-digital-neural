@@ -6,8 +6,8 @@ import ApperIcon from "@/components/ApperIcon";
 const Layout = () => {
   const location = useLocation();
   
-  // Create navigation items from routes configuration
-  const navItems = routes.filter(route => route.showInNav !== false).map(route => ({
+// Create navigation items from routes configuration
+  const navItems = routeArray.filter(route => route.showInNav !== false).map(route => ({
     id: route.path,
     path: route.path,
     label: route.label || route.name,
