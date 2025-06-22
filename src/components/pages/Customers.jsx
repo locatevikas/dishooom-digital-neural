@@ -97,10 +97,8 @@ const Customers = () => {
       toast.error(`Failed to update stage: ${error.message}`);
     }
   };
-
-  const handleEdit = (customer) => {
-    // Navigate to edit page - for now, just show a toast
-    toast.info('Edit functionality coming soon');
+const handleEdit = (customer) => {
+    navigate(`/customers/edit/${customer.Id}`);
   };
 
   const handleDelete = async (customer) => {

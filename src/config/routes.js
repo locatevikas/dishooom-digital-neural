@@ -4,7 +4,9 @@ import Customers from '@/components/pages/Customers';
 import Sales from '@/components/pages/Sales';
 import More from '@/components/pages/More';
 import AddProduct from '@/components/pages/AddProduct';
+import EditProduct from '@/components/pages/EditProduct';
 import AddCustomer from '@/components/pages/AddCustomer';
+import EditCustomer from '@/components/pages/EditCustomer';
 import CreateSalesOrder from '@/components/pages/CreateSalesOrder';
 import Expenses from '@/components/pages/Expenses';
 import Reports from '@/components/pages/Reports';
@@ -44,7 +46,7 @@ export const routes = {
     path: '/more',
     icon: 'Menu',
     component: More
-  },
+},
 addProduct: {
     id: 'addProduct',
     label: 'Add Product',
@@ -53,12 +55,28 @@ addProduct: {
     component: AddProduct,
     showInNav: false
   },
+editProduct: {
+    id: 'editProduct',
+    label: 'Edit Product',
+    path: '/inventory/edit/:id',
+    icon: 'Edit2',
+    component: EditProduct,
+    showInNav: false
+  },
 addCustomer: {
     id: 'addCustomer',
     label: 'Add Customer',
     path: '/customers/add',
     icon: 'UserPlus',
     component: AddCustomer,
+    showInNav: false
+  },
+editCustomer: {
+    id: 'editCustomer',
+    label: 'Edit Customer',
+    path: '/customers/edit/:id',
+    icon: 'Edit2',
+    component: EditCustomer,
     showInNav: false
   },
 createSalesOrder: {

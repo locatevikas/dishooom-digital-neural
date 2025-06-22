@@ -84,10 +84,8 @@ const Inventory = () => {
       toast.error(`Failed to update stock: ${error.message}`);
     }
   };
-
-  const handleEdit = (product) => {
-    // Navigate to edit page - for now, just show a toast
-    toast.info('Edit functionality coming soon');
+const handleEdit = (product) => {
+    navigate(`/inventory/edit/${product.Id}`);
   };
 
   const handleDelete = async (product) => {
@@ -147,22 +145,12 @@ const Inventory = () => {
   }
 
   return (
-    <div className="min-h-full bg-gray-50">
+<div className="min-h-full bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-4 py-4">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-xl font-bold text-gray-900">Inventory</h1>
-            <p className="text-sm text-gray-600">{filteredProducts.length} products</p>
-          </div>
-          <Button
-            size="sm"
-            onClick={() => navigate('/inventory/add')}
-            className="flex items-center gap-2"
-          >
-            <ApperIcon name="Plus" size={16} />
-            Add Product
-          </Button>
+        <div className="mb-4">
+          <h1 className="text-xl font-bold text-gray-900">Inventory</h1>
+          <p className="text-sm text-gray-600">{filteredProducts.length} products</p>
         </div>
 
         <SearchBar
@@ -239,8 +227,20 @@ const Inventory = () => {
                 />
               </motion.div>
             ))}
-          </motion.div>
+</motion.div>
         )}
+      </div>
+
+      {/* Floating Action Button */}
+      <div className="fixed bottom-24 right-4 z-30">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate('/inventory/add')}
+          className="w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-200"
+        >
+          <ApperIcon name="Plus" size={24} />
+        </motion.button>
       </div>
     </div>
   );
