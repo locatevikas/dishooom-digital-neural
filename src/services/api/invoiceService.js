@@ -77,8 +77,72 @@ class InvoiceService {
   }
 
   async getByOrderId(orderId) {
-    await delay(200);
+await delay(200);
     return this.data.filter(invoice => invoice.orderId === parseInt(orderId, 10));
+  }
+
+  async generatePDFInvoice(order, customerData) {
+    await delay(300);
+    
+    // Dynamic import for jsPDF to avoid bundling issues
+    const { jsPDF } = await import('jspdf');
+    
+    const doc = new jsPDF();
+    
+    // Company header
+    doc.setFontSize(20);
+    doc.setTextColor(0, 0, 0);
+    doc.text('DISHOOOM CRM', 20, 30);
+    
+    doc.setFontSize(12);
+    doc.text('Invoice', 20, 45);
+    
+    // Invoice details
+    doc.setFontSize(10);
+    doc.text(`Invoice Number: ${order.invoiceNumber}`, 20, 60);
+    doc.text(`Order ID: #${order.Id}`, 20, 70);
+    doc.text(`Date: ${new Date(order.orderDate).toLocaleDateString()}`, 20, 80);
+    
+    // Customer details
+    doc.text('Bill To:', 20, 100);
+    doc.text(order.customerName, 20, 110);
+    if (customerData) {
+      doc.text(customerData.address || '', 20, 120);
+      doc.text(`Phone: ${customerData.phone || ''}`, 20, 130);
+      doc.text(`GST: ${customerData.gstNumber || ''}`, 20, 140);
+    }
+    
+    // Items table header
+    let yPos = 160;
+    doc.setFontSize(9);
+    doc.text('Item', 20, yPos);
+    doc.text('Qty', 120, yPos);
+    doc.text('Rate', 140, yPos);
+    doc.text('Amount', 160, yPos);
+    
+    // Items
+    yPos += 10;
+    order.items.forEach(item => {
+      doc.text(item.productName, 20, yPos);
+      doc.text(item.quantity.toString(), 120, yPos);
+      doc.text(`₹${item.unitPrice}`, 140, yPos);
+      doc.text(`₹${item.total}`, 160, yPos);
+      yPos += 10;
+    });
+    
+    // Total
+    yPos += 10;
+    doc.setFontSize(12);
+    doc.text(`Total: ₹${order.totalAmount.toLocaleString()}`, 140, yPos);
+    doc.text(`Status: ${order.paymentStatus.toUpperCase()}`, 140, yPos + 15);
+    
+    // Download the PDF
+    doc.save(`Invoice-${order.invoiceNumber}.pdf`);
+    
+    return {
+      success: true,
+      filename: `Invoice-${order.invoiceNumber}.pdf`
+    };
   }
 }
 

@@ -7,23 +7,19 @@ import SearchBar from '@/components/molecules/SearchBar';
 import Button from '@/components/atoms/Button';
 import ApperIcon from '@/components/ApperIcon';
 import salesOrderService from '@/services/api/salesOrderService';
+import invoiceService from '@/services/api/invoiceService';
+import customerService from '@/services/api/customerService';
 
 const SalesFloatingActionButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const actions = [
+const actions = [
     {
       label: 'Create New Order',
       icon: 'ShoppingCart',
       path: '/sales/create',
       color: 'bg-primary'
-    },
-    {
-      label: 'Create New Invoice',
-      icon: 'FileText',
-      path: '/sales/invoice/create',
-      color: 'bg-accent'
     }
   ];
 
@@ -157,8 +153,31 @@ const Sales = () => {
       await salesOrderService.delete(order.Id);
       toast.success('Sales order deleted successfully');
       loadOrders();
-    } catch (error) {
+} catch (error) {
       toast.error(`Failed to delete order: ${error.message}`);
+    }
+  };
+
+  const handleGenerateInvoice = async (order) => {
+    try {
+      toast.info('Generating invoice PDF...');
+      
+      // Get customer data for invoice
+      let customerData = null;
+      try {
+        customerData = await customerService.getById(order.customerId);
+      } catch (err) {
+        console.warn('Could not fetch customer details:', err);
+      }
+      
+      const result = await invoiceService.generatePDFInvoice(order, customerData);
+      
+      if (result.success) {
+        toast.success(`Invoice ${result.filename} downloaded successfully!`);
+      }
+    } catch (error) {
+      console.error('Invoice generation failed:', error);
+      toast.error(`Failed to generate invoice: ${error.message}`);
     }
   };
 
@@ -281,11 +300,12 @@ const Sales = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
               >
-                <SalesOrderCard
+<SalesOrderCard
                   order={order}
                   onView={handleView}
                   onEdit={handleEdit}
                   onDelete={handleDelete}
+                  onInvoiceGenerate={handleGenerateInvoice}
                 />
               </motion.div>
             ))}

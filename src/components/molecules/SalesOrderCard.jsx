@@ -4,7 +4,7 @@ import Card from '@/components/atoms/Card';
 import Badge from '@/components/atoms/Badge';
 import { format } from 'date-fns';
 
-const SalesOrderCard = ({ order, onEdit, onDelete, onUpdatePayment, onViewDetails }) => {
+const SalesOrderCard = ({ order, onEdit, onDelete, onUpdatePayment, onViewDetails, onInvoiceGenerate }) => {
   const paymentColors = {
     paid: 'success',
     partial: 'warning',
@@ -24,11 +24,19 @@ const SalesOrderCard = ({ order, onEdit, onDelete, onUpdatePayment, onViewDetail
           <h3 className="font-semibold text-gray-900 truncate">{order.customerName}</h3>
           <p className="text-sm text-gray-600">{order.invoiceNumber}</p>
         </div>
-        <div className="flex items-center gap-2 ml-2">
+<div className="flex items-center gap-2 ml-2">
           <Badge variant={paymentColors[order.paymentStatus]}>
             {paymentLabels[order.paymentStatus]}
           </Badge>
           <div className="flex gap-1">
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={() => onInvoiceGenerate?.(order)}
+              className="p-1.5 text-gray-400 hover:text-blue-500 transition-colors"
+              title="Generate Invoice PDF"
+            >
+              <ApperIcon name="FileText" size={16} />
+            </motion.button>
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => onViewDetails?.(order)}

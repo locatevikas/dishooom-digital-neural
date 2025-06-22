@@ -1,17 +1,17 @@
-import Dashboard from '@/components/pages/Dashboard';
-import Inventory from '@/components/pages/Inventory';
-import Customers from '@/components/pages/Customers';
-import Sales from '@/components/pages/Sales';
-import More from '@/components/pages/More';
-import AddProduct from '@/components/pages/AddProduct';
-import EditProduct from '@/components/pages/EditProduct';
-import AddCustomer from '@/components/pages/AddCustomer';
-import EditCustomer from '@/components/pages/EditCustomer';
-import CreateSalesOrder from '@/components/pages/CreateSalesOrder';
-import EditSalesOrder from '@/components/pages/EditSalesOrder';
-import CreateInvoice from '@/components/pages/CreateInvoice';
-import Expenses from '@/components/pages/Expenses';
-import Reports from '@/components/pages/Reports';
+import React from "react";
+import EditSalesOrder from "@/components/pages/EditSalesOrder";
+import Sales from "@/components/pages/Sales";
+import More from "@/components/pages/More";
+import Customers from "@/components/pages/Customers";
+import AddCustomer from "@/components/pages/AddCustomer";
+import EditProduct from "@/components/pages/EditProduct";
+import Dashboard from "@/components/pages/Dashboard";
+import Inventory from "@/components/pages/Inventory";
+import Reports from "@/components/pages/Reports";
+import CreateSalesOrder from "@/components/pages/CreateSalesOrder";
+import EditCustomer from "@/components/pages/EditCustomer";
+import Expenses from "@/components/pages/Expenses";
+import AddProduct from "@/components/pages/AddProduct";
 
 export const routes = {
   dashboard: {
@@ -85,7 +85,7 @@ createSalesOrder: {
     id: 'createSalesOrder',
     label: 'Create Sales Order',
     path: '/sales/create',
-icon: 'FileText',
+    icon: 'FileText',
     component: CreateSalesOrder,
     showInNav: false
   },
@@ -95,14 +95,6 @@ editSalesOrder: {
     path: '/sales/edit/:id',
     icon: 'Edit2',
     component: EditSalesOrder,
-    showInNav: false
-  },
-  createInvoice: {
-    id: 'createInvoice',
-    label: 'Create Invoice',
-    path: '/sales/invoice/create',
-    icon: 'FileText',
-    component: CreateInvoice,
     showInNav: false
   },
   expenses: {
