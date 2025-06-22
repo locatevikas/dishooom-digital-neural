@@ -29,9 +29,9 @@
     "phone": "+91 76543 21098",
     "email": "orders@homecaresolutions.in",
     "type": "Retailer",
-    "pipelineStage": "new",
+"pipelineStage": "new",
     "assignedTo": "Sales Rep 1",
-    "lastContact": "1/25/2024 9:00:00 AMZ",
+    "lastContact": "2024-01-25T09:00:00Z",
     "address": "12 Gandhi Road, Delhi",
     "gstNumber": "07MNOPQ9012R3S4"
   },

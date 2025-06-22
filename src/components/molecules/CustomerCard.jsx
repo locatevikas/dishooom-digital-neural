@@ -1,8 +1,9 @@
-import { motion } from 'framer-motion';
-import ApperIcon from '@/components/ApperIcon';
-import Card from '@/components/atoms/Card';
-import Badge from '@/components/atoms/Badge';
-import { format } from 'date-fns';
+import { motion } from "framer-motion";
+import { format } from "date-fns";
+import React from "react";
+import ApperIcon from "@/components/ApperIcon";
+import Card from "@/components/atoms/Card";
+import Badge from "@/components/atoms/Badge";
 
 const CustomerCard = ({ customer, onEdit, onDelete, onCall, onEmail, onUpdateStage }) => {
   const stageColors = {
@@ -16,23 +17,48 @@ const CustomerCard = ({ customer, onEdit, onDelete, onCall, onEmail, onUpdateSta
     contacted: 'Contacted',
     closed: 'Closed'
   };
+  
+  const formatDate = (dateString) => {
+    if (!dateString) return 'No date';
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        return 'Invalid date';
+      }
+      return format(date, 'MMM dd');
+    } catch (error) {
+      console.warn('Date formatting error:', error);
+      return 'Invalid date';
+    }
+  };
+
+  // Safe property access with fallbacks
+  const pipelineStage = customer?.pipelineStage || 'new';
+  const stageColor = stageColors[pipelineStage] || 'info';
+  const stageLabel = stageLabels[pipelineStage] || 'Unknown';
 
   return (
     <Card className="p-4 hover:shadow-md transition-shadow">
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-gray-900 truncate">{customer.name}</h3>
-          <p className="text-sm text-gray-600">{customer.type}</p>
-        </div>
-        <div className="flex items-center gap-2 ml-2">
-          <Badge variant={stageColors[customer.pipelineStage]}>
-            {stageLabels[customer.pipelineStage]}
-          </Badge>
-          <div className="flex gap-1">
+      <div className="space-y-4">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+              <ApperIcon name="User" size={20} className="text-primary" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900">{customer?.name || 'Unknown Customer'}</h3>
+              <p className="text-sm text-gray-600">{customer?.type || 'Unknown Type'}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge variant={stageColor}>
+              {stageLabel}
+            </Badge>
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => onEdit?.(customer)}
-              className="p-1.5 text-gray-400 hover:text-primary transition-colors"
+              className="p-1.5 text-gray-400 hover:text-gray-600 transition-colors"
             >
               <ApperIcon name="Edit2" size={16} />
             </motion.button>
@@ -45,18 +71,16 @@ const CustomerCard = ({ customer, onEdit, onDelete, onCall, onEmail, onUpdateSta
             </motion.button>
           </div>
         </div>
-      </div>
 
-      <div className="space-y-3">
         {/* Contact Info */}
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-sm">
             <ApperIcon name="Phone" size={14} className="text-gray-400" />
-            <span className="text-gray-900">{customer.phone}</span>
+            <span className="text-gray-900">{customer?.phone || 'No phone'}</span>
           </div>
           <div className="flex items-center gap-2 text-sm">
             <ApperIcon name="Mail" size={14} className="text-gray-400" />
-            <span className="text-gray-600 truncate">{customer.email}</span>
+            <span className="text-gray-600 truncate">{customer?.email || 'No email'}</span>
           </div>
         </div>
 
@@ -81,9 +105,9 @@ const CustomerCard = ({ customer, onEdit, onDelete, onCall, onEmail, onUpdateSta
         </div>
 
         {/* Pipeline Actions */}
-        {customer.pipelineStage !== 'closed' && (
+        {customer?.pipelineStage !== 'closed' && (
           <div className="flex gap-2">
-            {customer.pipelineStage === 'new' && (
+            {customer?.pipelineStage === 'new' && (
               <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={() => onUpdateStage?.(customer, 'contacted')}
@@ -92,7 +116,7 @@ const CustomerCard = ({ customer, onEdit, onDelete, onCall, onEmail, onUpdateSta
                 Mark Contacted
               </motion.button>
             )}
-            {customer.pipelineStage === 'contacted' && (
+            {customer?.pipelineStage === 'contacted' && (
               <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={() => onUpdateStage?.(customer, 'closed')}
@@ -105,9 +129,9 @@ const CustomerCard = ({ customer, onEdit, onDelete, onCall, onEmail, onUpdateSta
         )}
 
         {/* Additional Info */}
-        <div className="flex justify-between text-xs text-gray-500 pt-2 border-t border-gray-100">
-          <span>Assigned: {customer.assignedTo}</span>
-          <span>Last Contact: {format(new Date(customer.lastContact), 'MMM dd')}</span>
+        <div className="flex items-center justify-between text-sm text-gray-600 pt-2 border-t border-gray-100">
+          <span>Assigned to: {customer?.assignedTo || 'Unassigned'}</span>
+          <span>Last Contact: {formatDate(customer?.lastContact)}</span>
         </div>
       </div>
     </Card>
