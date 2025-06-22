@@ -1,19 +1,19 @@
-import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import ApperIcon from '@/components/ApperIcon';
-import { routes } from '@/config/routes';
+import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import React from "react";
+import { routes } from "@/config/routes";
+import ApperIcon from "@/components/ApperIcon";
 
 const Layout = () => {
   const location = useLocation();
   
-  // Bottom navigation items
-  const navItems = [
-    routes.dashboard,
-    routes.inventory,
-    routes.customers,
-    routes.sales,
-    routes.more
-  ];
+  // Create navigation items from routes configuration
+  const navItems = routes.filter(route => route.showInNav !== false).map(route => ({
+    id: route.path,
+    path: route.path,
+    label: route.label || route.name,
+    icon: route.icon
+  }));
 
   return (
     <div className="h-screen flex flex-col overflow-hidden bg-gray-50">
