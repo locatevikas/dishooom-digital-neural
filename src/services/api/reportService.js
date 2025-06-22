@@ -12,13 +12,19 @@ const reportService = {
           const salesOrders = await salesOrderService.getAll();
           const customers = await customerService.getAll();
           const products = await productService.getAll();
-
-          // Filter sales within date range
+// Filter sales within date range
           const filteredSales = salesOrders.filter(order => {
-            const orderDate = parseISO(order.date);
-            return isWithinInterval(orderDate, { start: startDate, end: endDate });
+            try {
+              // Handle both 'date' and 'orderDate' fields from mock data
+              const dateString = order.date || order.orderDate;
+              if (!dateString) return false;
+              const orderDate = parseISO(dateString);
+              return isWithinInterval(orderDate, { start: startDate, end: endDate });
+            } catch (error) {
+              console.warn('Invalid date format in sales order:', order);
+              return false;
+            }
           });
-
           // Calculate metrics
           const totalRevenue = filteredSales.reduce((sum, order) => sum + order.total, 0);
           const totalOrders = filteredSales.length;
@@ -28,24 +34,37 @@ const reportService = {
           const daysDiff = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
           const previousStartDate = new Date(startDate);
           previousStartDate.setDate(previousStartDate.getDate() - daysDiff);
-          const previousEndDate = new Date(startDate);
+const previousEndDate = new Date(startDate);
           
           const previousSales = salesOrders.filter(order => {
-            const orderDate = parseISO(order.date);
-            return isWithinInterval(orderDate, { start: previousStartDate, end: previousEndDate });
+            try {
+              // Handle both 'date' and 'orderDate' fields from mock data
+              const dateString = order.date || order.orderDate;
+              if (!dateString) return false;
+              const orderDate = parseISO(dateString);
+              return isWithinInterval(orderDate, { start: previousStartDate, end: previousEndDate });
+            } catch (error) {
+              console.warn('Invalid date format in sales order:', order);
+              return false;
+            }
           });
-          
           const previousRevenue = previousSales.reduce((sum, order) => sum + order.total, 0);
           const revenueTrend = previousRevenue > 0 ? 
             ((totalRevenue - previousRevenue) / previousRevenue) * 100 : 0;
 
-          // Group sales by date for chart
+// Group sales by date for chart
           const salesByDate = {};
           filteredSales.forEach(order => {
-            const dateKey = format(parseISO(order.date), 'MMM dd');
-            salesByDate[dateKey] = (salesByDate[dateKey] || 0) + order.total;
+            try {
+              const dateString = order.date || order.orderDate;
+              if (dateString) {
+                const dateKey = format(parseISO(dateString), 'MMM dd');
+                salesByDate[dateKey] = (salesByDate[dateKey] || 0) + (order.total || order.totalAmount || 0);
+              }
+            } catch (error) {
+              console.warn('Error formatting date for chart:', order);
+            }
           });
-
           // Top products
           const productSales = {};
           filteredSales.forEach(order => {
@@ -131,13 +150,17 @@ const reportService = {
       setTimeout(async () => {
         try {
           const expenses = await expenseService.getAll();
-
-          // Filter expenses within date range
+// Filter expenses within date range
           const filteredExpenses = expenses.filter(expense => {
-            const expenseDate = parseISO(expense.date);
-            return isWithinInterval(expenseDate, { start: startDate, end: endDate });
+            try {
+              if (!expense.date) return false;
+              const expenseDate = parseISO(expense.date);
+              return isWithinInterval(expenseDate, { start: startDate, end: endDate });
+            } catch (error) {
+              console.warn('Invalid date format in expense:', expense);
+              return false;
+            }
           });
-
           // Calculate metrics
           const totalExpenses = filteredExpenses.reduce((sum, expense) => sum + expense.amount, 0);
           const totalCount = filteredExpenses.length;
@@ -149,13 +172,18 @@ const reportService = {
             expensesByCategory[expense.category] = (expensesByCategory[expense.category] || 0) + expense.amount;
           });
 
-          // Group by date for chart
+// Group by date for chart
           const expensesByDate = {};
           filteredExpenses.forEach(expense => {
-            const dateKey = format(parseISO(expense.date), 'MMM dd');
-            expensesByDate[dateKey] = (expensesByDate[dateKey] || 0) + expense.amount;
+            try {
+              if (expense.date) {
+                const dateKey = format(parseISO(expense.date), 'MMM dd');
+                expensesByDate[dateKey] = (expensesByDate[dateKey] || 0) + expense.amount;
+              }
+            } catch (error) {
+              console.warn('Error formatting expense date for chart:', expense);
+            }
           });
-
           const categoryData = Object.entries(expensesByCategory)
             .sort(([,a], [,b]) => b - a)
             .map(([category, amount]) => [category, `$${amount.toFixed(2)}`, amount]);

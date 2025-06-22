@@ -617,14 +617,16 @@ const Reports = () => {
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-6">
                           <ApperIcon name="FileText" size={24} className="text-gray-700" />
-                          <h3 className="text-xl font-semibold text-gray-900">Executive Summary</h3>
+<h3 className="text-xl font-semibold text-gray-900">Executive Summary</h3>
                         </div>
-                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6">
+                        <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-xl p-6 border border-blue-100">
                           <div className="prose max-w-none">
                             {reportData.summary.split('\n').map((line, index) => (
-                              <p key={index} className="text-gray-800 mb-3 leading-relaxed">
-                                {line}
-                              </p>
+                              line.trim() ? (
+                                <p key={index} className="text-gray-800 mb-4 leading-relaxed font-medium text-sm">
+                                  {line.trim()}
+                                </p>
+                              ) : null
                             ))}
                           </div>
                         </div>
