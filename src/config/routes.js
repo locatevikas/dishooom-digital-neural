@@ -7,6 +7,7 @@ import AddProduct from '@/components/pages/AddProduct';
 import AddCustomer from '@/components/pages/AddCustomer';
 import CreateSalesOrder from '@/components/pages/CreateSalesOrder';
 import Expenses from '@/components/pages/Expenses';
+import Reports from '@/components/pages/Reports';
 
 export const routes = {
   dashboard: {
@@ -65,12 +66,19 @@ export const routes = {
     icon: 'FileText',
     component: CreateSalesOrder
   },
-  expenses: {
+expenses: {
     id: 'expenses',
     label: 'Expenses',
     path: '/expenses',
     icon: 'Receipt',
     component: Expenses
+  },
+  reports: {
+    id: 'reports',
+    label: 'Reports',
+    path: '/reports',
+    icon: 'BarChart',
+    component: Reports
   }
 };
 
