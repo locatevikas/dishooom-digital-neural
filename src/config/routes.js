@@ -8,6 +8,7 @@ import EditProduct from '@/components/pages/EditProduct';
 import AddCustomer from '@/components/pages/AddCustomer';
 import EditCustomer from '@/components/pages/EditCustomer';
 import CreateSalesOrder from '@/components/pages/CreateSalesOrder';
+import EditSalesOrder from '@/components/pages/EditSalesOrder';
 import Expenses from '@/components/pages/Expenses';
 import Reports from '@/components/pages/Reports';
 
@@ -83,11 +84,19 @@ createSalesOrder: {
     id: 'createSalesOrder',
     label: 'Create Sales Order',
     path: '/sales/create',
-    icon: 'FileText',
+icon: 'FileText',
     component: CreateSalesOrder,
     showInNav: false
   },
-expenses: {
+  editSalesOrder: {
+    id: 'editSalesOrder',
+    label: 'Edit Sales Order',
+    path: '/sales/edit/:id',
+    icon: 'Edit2',
+    component: EditSalesOrder,
+    showInNav: false
+  },
+  expenses: {
     id: 'expenses',
     label: 'Expenses',
     path: '/expenses',
