@@ -96,20 +96,22 @@ editSalesOrder: {
     icon: 'Edit2',
     component: EditSalesOrder,
     showInNav: false
-  },
+},
   expenses: {
     id: 'expenses',
     label: 'Expenses',
     path: '/expenses',
     icon: 'Receipt',
-    component: Expenses
+    component: Expenses,
+    showInMobileNav: false
   },
 reports: {
     id: 'reports',
     label: 'Reports',
     path: '/reports',
     icon: 'BarChart',
-    component: Reports
+    component: Reports,
+    showInMobileNav: false
   }
 };
 

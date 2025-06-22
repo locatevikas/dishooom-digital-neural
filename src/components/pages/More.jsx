@@ -51,9 +51,9 @@ const More = () => {
     }
   ];
 
-  const handleItemClick = (item) => {
-    if (item.path === '/expenses') {
-      navigate('/expenses');
+const handleItemClick = (item) => {
+    if (item.path === '/expenses' || item.path === '/reports') {
+      navigate(item.path);
     } else {
       // For other items, show coming soon message
       alert(`${item.title} feature coming soon!`);
