@@ -23,64 +23,62 @@ const Layout = () => {
 
 return (
     <div className="h-screen flex flex-col overflow-hidden bg-gray-50">
-      {/* Desktop Navigation Header */}
-      <nav className="hidden md:block bg-white border-b border-gray-200 px-6 py-3">
-        <div className="flex items-center justify-between max-w-7xl mx-auto">
-          <div className="flex items-center space-x-8">
-            <div className="flex items-center">
-              <span className="text-xl font-bold text-primary">Dishooom</span>
-            </div>
-            <div className="flex space-x-6">
-              {desktopNavItems.slice(0, -1).map(item => {
-                const isActive = location.pathname === item.path;
-                return (
-                  <NavLink
-                    key={item.id}
-                    to={item.path}
-                    className={({ isActive }) => 
-                      `flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                        isActive 
-                          ? 'text-primary bg-primary/10' 
-                          : 'text-gray-700 hover:text-primary hover:bg-gray-100'
-                      }`
-                    }
-                  >
-                    <ApperIcon name={item.icon} size={18} />
-                    <span>{item.label}</span>
-                  </NavLink>
-                );
-              })}
-            </div>
-          </div>
-          <div className="flex items-center">
-            {/* More menu for desktop */}
-            {desktopNavItems.slice(-1).map(item => {
+      {/* Desktop Header */}
+      <div className="hidden md:block bg-white border-b border-gray-200 px-6 py-3">
+        <div className="flex items-center justify-center max-w-7xl mx-auto">
+          <span className="text-xl font-bold text-primary">Dishooom</span>
+        </div>
+      </div>
+
+      {/* Main content area */}
+      <div className="flex-1 overflow-y-auto pb-20">
+        <Outlet />
+      </div>
+
+      {/* Desktop Bottom Navigation */}
+      <nav className="hidden md:block bg-white border-t border-gray-200 px-6 py-3">
+        <div className="flex items-center justify-center max-w-7xl mx-auto">
+          <div className="flex space-x-8">
+            {desktopNavItems.map(item => {
               const isActive = location.pathname === item.path;
               return (
                 <NavLink
                   key={item.id}
                   to={item.path}
                   className={({ isActive }) => 
-                    `flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      isActive 
-                        ? 'text-primary bg-primary/10' 
-                        : 'text-gray-700 hover:text-primary hover:bg-gray-100'
-                    }`
+                    `flex flex-col items-center py-2 px-4 min-w-0 relative ${
+                      isActive ? 'text-primary' : 'text-gray-500'
+                    } transition-colors hover:text-primary`
                   }
                 >
-                  <ApperIcon name={item.icon} size={18} />
-                  <span>{item.label}</span>
+                  {({ isActive }) => (
+                    <>
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeDesktopTab"
+                          className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-primary rounded-full"
+                          initial={false}
+                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                        />
+                      )}
+                      <ApperIcon 
+                        name={item.icon} 
+                        size={20} 
+                        className={`mb-1 ${isActive ? 'text-primary' : 'text-gray-500'}`}
+                      />
+                      <span className={`text-xs font-medium ${
+                        isActive ? 'text-primary' : 'text-gray-500'
+                      }`}>
+                        {item.label}
+                      </span>
+                    </>
+                  )}
                 </NavLink>
               );
             })}
           </div>
         </div>
       </nav>
-
-      {/* Main content area */}
-      <div className="flex-1 overflow-y-auto md:pb-0 pb-20">
-        <Outlet />
-      </div>
 {/* Mobile Bottom navigation */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40">
         <div className="flex justify-around py-2">

@@ -35,68 +35,13 @@ export const routes = {
     icon: 'Users',
     component: Customers
   },
-  sales: {
+sales: {
     id: 'sales',
     label: 'Sales',
     path: '/sales',
     icon: 'ShoppingCart',
     component: Sales
   },
-  more: {
-    id: 'more',
-    label: 'More',
-    path: '/more',
-    icon: 'Menu',
-    component: More
-},
-addProduct: {
-    id: 'addProduct',
-    label: 'Add Product',
-    path: '/inventory/add',
-    icon: 'Plus',
-    component: AddProduct,
-    showInNav: false
-  },
-editProduct: {
-    id: 'editProduct',
-    label: 'Edit Product',
-    path: '/inventory/edit/:id',
-    icon: 'Edit2',
-    component: EditProduct,
-    showInNav: false
-  },
-addCustomer: {
-    id: 'addCustomer',
-    label: 'Add Customer',
-    path: '/customers/add',
-    icon: 'UserPlus',
-    component: AddCustomer,
-    showInNav: false
-  },
-editCustomer: {
-    id: 'editCustomer',
-    label: 'Edit Customer',
-    path: '/customers/edit/:id',
-    icon: 'Edit2',
-    component: EditCustomer,
-    showInNav: false
-  },
-createSalesOrder: {
-    id: 'createSalesOrder',
-    label: 'Create Sales Order',
-    path: '/sales/create',
-    icon: 'FileText',
-    component: CreateSalesOrder,
-    showInNav: false
-  },
-editSalesOrder: {
-    id: 'editSalesOrder',
-    label: 'Edit Sales Order',
-    path: '/sales/edit/:id',
-    icon: 'Edit2',
-    component: EditSalesOrder,
-    showInNav: false
-},
   expenses: {
     id: 'expenses',
     label: 'Expenses',
@@ -105,13 +50,68 @@ editSalesOrder: {
     component: Expenses,
     showInMobileNav: false
   },
-reports: {
+  reports: {
     id: 'reports',
     label: 'Reports',
     path: '/reports',
     icon: 'BarChart',
     component: Reports,
     showInMobileNav: false
+  },
+  more: {
+    id: 'more',
+    label: 'More',
+    path: '/more',
+    icon: 'Menu',
+    component: More
+  },
+  addProduct: {
+    id: 'addProduct',
+    label: 'Add Product',
+    path: '/inventory/add',
+    icon: 'Plus',
+    component: AddProduct,
+    showInNav: false
+  },
+  editProduct: {
+    id: 'editProduct',
+    label: 'Edit Product',
+    path: '/inventory/edit/:id',
+    icon: 'Edit2',
+    component: EditProduct,
+    showInNav: false
+  },
+  addCustomer: {
+    id: 'addCustomer',
+    label: 'Add Customer',
+    path: '/customers/add',
+    icon: 'UserPlus',
+    component: AddCustomer,
+    showInNav: false
+  },
+  editCustomer: {
+    id: 'editCustomer',
+    label: 'Edit Customer',
+    path: '/customers/edit/:id',
+    icon: 'Edit2',
+    component: EditCustomer,
+    showInNav: false
+  },
+  createSalesOrder: {
+    id: 'createSalesOrder',
+    label: 'Create Sales Order',
+    path: '/sales/create',
+    icon: 'FileText',
+    component: CreateSalesOrder,
+    showInNav: false
+  },
+  editSalesOrder: {
+    id: 'editSalesOrder',
+    label: 'Edit Sales Order',
+    path: '/sales/edit/:id',
+    icon: 'Edit2',
+    component: EditSalesOrder,
+    showInNav: false
   }
 };
 
