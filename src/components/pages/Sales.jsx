@@ -13,7 +13,7 @@ const Sales = () => {
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState('all'); // all, paid, partial, pending
+  const [filter, setFilter] = useState('all'); // all, pending, partial, paid
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,9 +29,7 @@ const Sales = () => {
     setError(null);
     try {
       const data = await salesOrderService.getAll();
-      // Sort by date descending
-      const sortedData = data.sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
-      setOrders(sortedData);
+      setOrders(data);
     } catch (err) {
       setError(err.message || 'Failed to load sales orders');
       toast.error('Failed to load sales orders');
@@ -43,8 +41,14 @@ const Sales = () => {
   const applyFilters = () => {
     let filtered = [...orders];
     
-    if (filter !== 'all') {
-      filtered = filtered.filter(order => order.paymentStatus === filter);
+    switch (filter) {
+      case 'pending':
+      case 'partial':
+      case 'paid':
+        filtered = filtered.filter(o => o.paymentStatus === filter);
+        break;
+      default:
+        break;
     }
     
     setFilteredOrders(filtered);
@@ -58,40 +62,23 @@ const Sales = () => {
     
     const filtered = orders.filter(order =>
       order.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.invoiceNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.items.some(item => 
-        item.productName.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      order.Id.toString().includes(searchTerm)
     );
     setFilteredOrders(filtered);
   };
 
-  const handleUpdatePayment = async (order, newStatus) => {
-    try {
-      await salesOrderService.updatePaymentStatus(order.Id, newStatus);
-      toast.success(`Payment status updated to ${newStatus}`);
-      loadOrders();
-    } catch (error) {
-      toast.error(`Failed to update payment status: ${error.message}`);
-    }
-  };
-
-  const handleViewDetails = (order) => {
-    // For now, show a simple alert with order details
-    const itemsList = order.items.map(item => 
-      `${item.productName} x${item.quantity} = ₹${item.total}`
-    ).join('\n');
-    
-    alert(`Order Details:\n\nCustomer: ${order.customerName}\nInvoice: ${order.invoiceNumber}\nTotal: ₹${order.totalAmount}\n\nItems:\n${itemsList}`);
+  const handleView = (order) => {
+    // Navigate to order details - for now, just show a toast
+    toast.info('Order details view coming soon');
   };
 
   const handleEdit = (order) => {
-    // Navigate to edit page - for now, just show a toast
-    toast.info('Edit functionality coming soon');
+    // Navigate to edit order page
+    navigate(`/sales/edit/${order.Id}`);
   };
 
   const handleDelete = async (order) => {
-    if (!window.confirm(`Are you sure you want to delete order ${order.invoiceNumber}?`)) return;
+    if (!window.confirm(`Are you sure you want to delete order #${order.Id}?`)) return;
 
     try {
       await salesOrderService.delete(order.Id);
@@ -104,20 +91,10 @@ const Sales = () => {
 
   const filterOptions = [
     { value: 'all', label: 'All Orders', icon: 'ShoppingCart' },
-    { value: 'paid', label: 'Paid', icon: 'CheckCircle' },
-    { value: 'partial', label: 'Partial', icon: 'Clock' },
-    { value: 'pending', label: 'Pending', icon: 'AlertCircle' }
+    { value: 'pending', label: 'Pending', icon: 'Clock' },
+    { value: 'partial', label: 'Partial', icon: 'AlertCircle' },
+    { value: 'paid', label: 'Paid', icon: 'CheckCircle' }
   ];
-
-  // Calculate totals
-  const totals = {
-    all: orders.length,
-    paid: orders.filter(o => o.paymentStatus === 'paid').length,
-    partial: orders.filter(o => o.paymentStatus === 'partial').length,
-    pending: orders.filter(o => o.paymentStatus === 'pending').length,
-    totalAmount: orders.reduce((sum, order) => sum + order.totalAmount, 0),
-    pendingAmount: orders.filter(o => o.paymentStatus === 'pending').reduce((sum, order) => sum + order.totalAmount, 0)
-  };
 
   if (loading) {
     return (
@@ -160,41 +137,15 @@ const Sales = () => {
     <div className="min-h-full bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-4 py-4">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-xl font-bold text-gray-900">Sales</h1>
-            <p className="text-sm text-gray-600">
-              {filteredOrders.length} orders • ₹{totals.totalAmount.toLocaleString()} total
-            </p>
-          </div>
-          <Button
-            size="sm"
-            onClick={() => navigate('/sales/create')}
-            className="flex items-center gap-2"
-          >
-            <ApperIcon name="Plus" size={16} />
-            New Order
-          </Button>
+        <div className="mb-4">
+          <h1 className="text-xl font-bold text-gray-900">Sales Orders</h1>
+          <p className="text-sm text-gray-600">{filteredOrders.length} orders</p>
         </div>
 
         <SearchBar
           placeholder="Search orders..."
           onSearch={handleSearch}
         />
-      </div>
-
-      {/* Summary Cards */}
-      <div className="bg-white border-b border-gray-200 p-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="text-center p-3 bg-green-50 rounded-lg">
-            <p className="text-sm text-green-600 font-medium">Total Sales</p>
-            <p className="text-lg font-bold text-green-700">₹{totals.totalAmount.toLocaleString()}</p>
-          </div>
-          <div className="text-center p-3 bg-red-50 rounded-lg">
-            <p className="text-sm text-red-600 font-medium">Pending Payments</p>
-            <p className="text-lg font-bold text-red-700">₹{totals.pendingAmount.toLocaleString()}</p>
-          </div>
-        </div>
       </div>
 
       {/* Filter Tabs */}
@@ -216,9 +167,11 @@ const Sales = () => {
             >
               <ApperIcon name={option.icon} size={16} />
               {option.label}
-              <span className="ml-1 px-2 py-0.5 bg-white/20 rounded-full text-xs">
-                {totals[option.value]}
-              </span>
+              {option.value === 'pending' && (
+                <span className="ml-1 px-2 py-0.5 bg-orange-100 text-orange-600 rounded-full text-xs">
+                  {orders.filter(o => o.paymentStatus === 'pending').length}
+                </span>
+              )}
             </motion.button>
           ))}
         </div>
@@ -229,7 +182,7 @@ const Sales = () => {
         {filteredOrders.length === 0 ? (
           <div className="text-center py-12">
             <ApperIcon name="ShoppingCart" size={64} className="mx-auto mb-4 text-gray-300" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No orders found</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">No sales orders found</h3>
             <p className="text-gray-600 mb-6">
               {filter === 'all' 
                 ? "Start by creating your first sales order"
@@ -257,15 +210,26 @@ const Sales = () => {
               >
                 <SalesOrderCard
                   order={order}
+                  onView={handleView}
                   onEdit={handleEdit}
                   onDelete={handleDelete}
-                  onUpdatePayment={handleUpdatePayment}
-                  onViewDetails={handleViewDetails}
                 />
               </motion.div>
             ))}
           </motion.div>
         )}
+      </div>
+
+      {/* Floating Action Button */}
+      <div className="fixed bottom-24 right-4 z-30">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate('/sales/create')}
+          className="w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-200"
+        >
+          <ApperIcon name="Plus" size={24} />
+        </motion.button>
       </div>
     </div>
   );

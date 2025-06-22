@@ -6,6 +6,7 @@ import CustomerCard from '@/components/molecules/CustomerCard';
 import SearchBar from '@/components/molecules/SearchBar';
 import Button from '@/components/atoms/Button';
 import ApperIcon from '@/components/ApperIcon';
+import FloatingActionButton from '@/components/molecules/FloatingActionButton';
 import customerService from '@/services/api/customerService';
 
 const Customers = () => {
@@ -162,21 +163,11 @@ const Customers = () => {
 
   return (
     <div className="min-h-full bg-gray-50">
-      {/* Header */}
+{/* Header */}
       <div className="bg-white border-b border-gray-200 px-4 py-4">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-xl font-bold text-gray-900">Customers</h1>
-            <p className="text-sm text-gray-600">{filteredCustomers.length} customers</p>
-          </div>
-          <Button
-            size="sm"
-            onClick={() => navigate('/customers/add')}
-            className="flex items-center gap-2"
-          >
-            <ApperIcon name="UserPlus" size={16} />
-            Add Customer
-          </Button>
+        <div className="mb-4">
+          <h1 className="text-xl font-bold text-gray-900">Customers</h1>
+          <p className="text-sm text-gray-600">{filteredCustomers.length} customers</p>
         </div>
 
         <SearchBar
@@ -255,8 +246,20 @@ const Customers = () => {
                 />
               </motion.div>
             ))}
-          </motion.div>
+</motion.div>
         )}
+      </div>
+
+      {/* Floating Action Button */}
+      <div className="fixed bottom-24 right-4 z-30">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate('/customers/add')}
+          className="w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-200"
+        >
+          <ApperIcon name="UserPlus" size={24} />
+        </motion.button>
       </div>
     </div>
   );

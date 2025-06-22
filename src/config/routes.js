@@ -45,26 +45,29 @@ export const routes = {
     icon: 'Menu',
     component: More
   },
-  addProduct: {
+addProduct: {
     id: 'addProduct',
     label: 'Add Product',
     path: '/inventory/add',
     icon: 'Plus',
-    component: AddProduct
+    component: AddProduct,
+    showInNav: false
   },
-  addCustomer: {
+addCustomer: {
     id: 'addCustomer',
     label: 'Add Customer',
     path: '/customers/add',
     icon: 'UserPlus',
-    component: AddCustomer
+    component: AddCustomer,
+    showInNav: false
   },
-  createSalesOrder: {
+createSalesOrder: {
     id: 'createSalesOrder',
     label: 'Create Sales Order',
     path: '/sales/create',
     icon: 'FileText',
-    component: CreateSalesOrder
+    component: CreateSalesOrder,
+    showInNav: false
   },
 expenses: {
     id: 'expenses',
@@ -73,7 +76,7 @@ expenses: {
     icon: 'Receipt',
     component: Expenses
   },
-  reports: {
+reports: {
     id: 'reports',
     label: 'Reports',
     path: '/reports',
