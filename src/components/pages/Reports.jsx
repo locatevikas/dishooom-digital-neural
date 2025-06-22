@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import DatePicker from 'react-datepicker';
 import ApperIcon from '@/components/ApperIcon';
 import Card from '@/components/atoms/Card';
 import Button from '@/components/atoms/Button';
@@ -10,6 +11,7 @@ import reportService from '@/services/api/reportService';
 import { toast } from 'react-toastify';
 import Chart from 'react-apexcharts';
 import { format, startOfMonth, endOfMonth, subMonths, startOfYear } from 'date-fns';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const Reports = () => {
   const [loading, setLoading] = useState(false);
@@ -371,24 +373,33 @@ const Reports = () => {
                   </Select>
                 </div>
 
-                {/* Custom Date Inputs */}
+{/* Custom Date Inputs */}
                 {dateRange === 'custom' && (
                   <div className="flex items-center gap-2">
-                    <Input
-                      type="date"
-                      value={customStartDate}
-                      onChange={(e) => setCustomStartDate(e.target.value)}
-                      className="w-auto"
-                      placeholder="Start Date"
-                    />
-                    <span className="text-gray-400">to</span>
-                    <Input
-                      type="date"
-                      value={customEndDate}
-                      onChange={(e) => setCustomEndDate(e.target.value)}
-                      className="w-auto"
-                      placeholder="End Date"
-                    />
+                    <div className="flex flex-col">
+                      <label className="text-xs text-gray-600 mb-1">Start Date</label>
+                      <DatePicker
+                        selected={customStartDate ? new Date(customStartDate) : null}
+                        onChange={(date) => setCustomStartDate(date ? date.toISOString().split('T')[0] : '')}
+                        dateFormat="MMM dd, yyyy"
+                        placeholderText="Select start date"
+                        className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        maxDate={new Date()}
+                      />
+                    </div>
+                    <span className="text-gray-400 self-end pb-2">to</span>
+                    <div className="flex flex-col">
+                      <label className="text-xs text-gray-600 mb-1">End Date</label>
+                      <DatePicker
+                        selected={customEndDate ? new Date(customEndDate) : null}
+                        onChange={(date) => setCustomEndDate(date ? date.toISOString().split('T')[0] : '')}
+                        dateFormat="MMM dd, yyyy"
+                        placeholderText="Select end date"
+                        className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        minDate={customStartDate ? new Date(customStartDate) : null}
+                        maxDate={new Date()}
+                      />
+                    </div>
                   </div>
                 )}
 

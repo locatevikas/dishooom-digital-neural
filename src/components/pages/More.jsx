@@ -52,7 +52,7 @@ const More = () => {
   ];
 
 const handleItemClick = (item) => {
-    if (item.path === '/expenses' || item.path === '/reports') {
+    if (item.path === '/expenses' || item.path === '/reports' || item.path === '/settings') {
       navigate(item.path);
     } else {
       // For other items, show coming soon message

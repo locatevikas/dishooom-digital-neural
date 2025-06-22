@@ -12,6 +12,7 @@ import CreateSalesOrder from "@/components/pages/CreateSalesOrder";
 import EditCustomer from "@/components/pages/EditCustomer";
 import Expenses from "@/components/pages/Expenses";
 import AddProduct from "@/components/pages/AddProduct";
+import Settings from "@/components/pages/Settings";
 
 export const routes = {
   dashboard: {
@@ -109,8 +110,16 @@ sales: {
     id: 'editSalesOrder',
     label: 'Edit Sales Order',
     path: '/sales/edit/:id',
-    icon: 'Edit2',
+icon: 'Edit2',
     component: EditSalesOrder,
+    showInNav: false
+  },
+  settings: {
+    id: 'settings',
+    label: 'Settings',
+    path: '/settings',
+    icon: 'Settings',
+    component: Settings,
     showInNav: false
   }
 };

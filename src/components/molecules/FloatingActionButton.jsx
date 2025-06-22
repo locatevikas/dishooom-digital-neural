@@ -33,8 +33,8 @@ const FloatingActionButton = () => {
     setIsOpen(false);
   };
 
-  return (
-    <div className="fixed bottom-24 right-4 z-30">
+return (
+    <div className="fixed bottom-28 right-4 z-30">
       <AnimatePresence>
         {isOpen && (
           <motion.div
