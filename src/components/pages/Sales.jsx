@@ -143,19 +143,19 @@ const Sales = () => {
 
   if (loading) {
     return (
-      <div className="min-h-full bg-gray-50">
-        <div className="bg-white border-b border-gray-200 px-4 py-4">
-          <div className="h-6 bg-gray-200 rounded w-32 animate-pulse"></div>
+      <div className="min-h-full bg-gray-50 dark:bg-gray-900">
+        <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-4">
+          <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-32 animate-pulse"></div>
         </div>
         <div className="p-4 space-y-4">
-          <div className="h-12 bg-gray-200 rounded animate-pulse"></div>
+          <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
           <div className="grid gap-4">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="bg-white rounded-lg p-4 animate-pulse">
+              <div key={i} className="bg-white dark:bg-gray-800 rounded-lg p-4 animate-pulse">
                 <div className="space-y-3">
-                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                  <div className="h-3 bg-gray-200 rounded w-1/2"></div>
-                  <div className="h-8 bg-gray-200 rounded"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                  <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                  <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
                 </div>
               </div>
             ))}
@@ -167,11 +167,11 @@ const Sales = () => {
 
   if (error) {
     return (
-      <div className="min-h-full bg-gray-50 flex items-center justify-center">
+      <div className="min-h-full bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center p-8">
           <ApperIcon name="AlertCircle" size={48} className="mx-auto mb-4 text-red-500" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">Failed to load sales orders</h3>
-          <p className="text-gray-600 mb-4">{error}</p>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Failed to load sales orders</h3>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
           <Button onClick={loadOrders}>Try Again</Button>
         </div>
       </div>
@@ -179,12 +179,12 @@ const Sales = () => {
   }
 
   return (
-    <div className="min-h-full bg-gray-50">
+    <div className="min-h-full bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4">
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-4">
         <div className="mb-4">
-          <h1 className="text-xl font-bold text-gray-900">Sales Orders</h1>
-          <p className="text-sm text-gray-600">{filteredOrders.length} orders</p>
+          <h1 className="text-xl font-bold text-gray-900 dark:text-white">Sales Orders</h1>
+          <p className="text-sm text-gray-600 dark:text-gray-400">{filteredOrders.length} orders</p>
         </div>
 
         <SearchBar
@@ -194,7 +194,7 @@ const Sales = () => {
       </div>
 
       {/* Filter Tabs */}
-      <div className="bg-white border-b border-gray-200 px-4">
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4">
         <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
           {filterOptions.map(option => (
             <motion.button
@@ -206,14 +206,14 @@ const Sales = () => {
                 transition-colors duration-200
                 ${filter === option.value
                   ? 'bg-primary text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }
               `}
             >
               <ApperIcon name={option.icon} size={16} />
               {option.label}
               {option.value === 'pending' && (
-                <span className="ml-1 px-2 py-0.5 bg-orange-100 text-orange-600 rounded-full text-xs">
+                <span className="ml-1 px-2 py-0.5 bg-orange-100 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 rounded-full text-xs">
                   {orders.filter(o => o.paymentStatus === 'pending').length}
                 </span>
               )}
@@ -226,9 +226,9 @@ const Sales = () => {
       <div className="p-4">
         {filteredOrders.length === 0 ? (
           <div className="text-center py-12">
-            <ApperIcon name="ShoppingCart" size={64} className="mx-auto mb-4 text-gray-300" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No sales orders found</h3>
-            <p className="text-gray-600 mb-6">
+            <ApperIcon name="ShoppingCart" size={64} className="mx-auto mb-4 text-gray-300 dark:text-gray-700" />
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No sales orders found</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
               {filter === 'all' 
                 ? "Start by creating your first sales order"
                 : "No orders match the current filter"

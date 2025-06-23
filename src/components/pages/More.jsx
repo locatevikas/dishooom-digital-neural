@@ -61,27 +61,27 @@ const handleItemClick = (item) => {
   };
 
   return (
-    <div className="min-h-full bg-gray-50">
+    <div className="min-h-full bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4">
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-4">
         <div>
-          <h1 className="text-xl font-bold text-gray-900">More</h1>
-          <p className="text-sm text-gray-600">Additional features and settings</p>
+          <h1 className="text-xl font-bold text-gray-900 dark:text-white">More</h1>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Additional features and settings</p>
         </div>
       </div>
 
       {/* Content */}
       <div className="p-4">
         {/* Business Info Card */}
-        <Card className="p-4 mb-6">
+        <Card className="p-4 mb-6 dark:bg-gray-800 dark:border-gray-700">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-2xl font-bold text-white">D</span>
             </div>
             <div className="flex-1">
-              <h3 className="text-lg font-semibold text-gray-900">Dishooom</h3>
-              <p className="text-sm text-gray-600">Chemical Product Manufacturing</p>
-              <p className="text-xs text-gray-500 mt-1">Version 1.0.0</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Dishooom</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Chemical Product Manufacturing</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Version 1.0.0</p>
             </div>
           </div>
         </Card>
@@ -98,17 +98,17 @@ const handleItemClick = (item) => {
               <Card
                 hover
                 onClick={() => handleItemClick(item)}
-                className="p-4"
+                className="p-4 dark:bg-gray-800 dark:border-gray-700"
               >
                 <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${item.color}`}>
+                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${item.color} dark:bg-opacity-20 dark:text-opacity-80`}>
                     <ApperIcon name={item.icon} size={24} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                    <p className="text-sm text-gray-600 truncate">{item.description}</p>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">{item.title}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 truncate">{item.description}</p>
                   </div>
-                  <ApperIcon name="ChevronRight" size={20} className="text-gray-400" />
+                  <ApperIcon name="ChevronRight" size={20} className="text-gray-400 dark:text-gray-500" />
                 </div>
               </Card>
             </motion.div>
@@ -116,7 +116,7 @@ const handleItemClick = (item) => {
         </div>
 
         {/* Footer */}
-        <div className="mt-8 text-center text-xs text-gray-500">
+        <div className="mt-8 text-center text-xs text-gray-500 dark:text-gray-400">
           <p>© 2024 Dishooom CRM. All rights reserved.</p>
           <p className="mt-1">Made with ❤️ for chemical product manufacturers</p>
         </div>

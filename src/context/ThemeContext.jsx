@@ -18,7 +18,7 @@ export const ThemeProvider = ({ children }) => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const root = window.document.documentElement;
-      root.classList.remove(theme === 'dark' ? 'light' : 'dark');
+      root.classList.remove('light', 'dark');
       root.classList.add(theme);
       localStorage.setItem('theme', theme);
     }

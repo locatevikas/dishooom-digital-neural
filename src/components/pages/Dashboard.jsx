@@ -5,13 +5,13 @@ import FloatingActionButton from '@/components/molecules/FloatingActionButton';
 
 const Dashboard = () => {
   return (
-    <div className="min-h-full bg-gray-50">
+    <div className="min-h-full bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4">
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-4">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
-            <p className="text-sm text-gray-600">Welcome back to Dishooom CRM</p>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Welcome back to Dishooom CRM</p>
           </div>
           <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
             <span className="text-primary font-bold">D</span>

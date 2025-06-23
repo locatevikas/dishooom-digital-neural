@@ -149,16 +149,16 @@ const Expenses = () => {
 
   if (loading) {
     return (
-      <div className="min-h-full bg-gray-50">
-        <div className="bg-white border-b border-gray-200 px-4 py-4">
-          <div className="h-6 bg-gray-200 rounded w-32 animate-pulse"></div>
+      <div className="min-h-full bg-gray-50 dark:bg-gray-900">
+        <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-4">
+          <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-32 animate-pulse"></div>
         </div>
         <div className="p-4 space-y-4">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="bg-white rounded-lg p-4 animate-pulse">
+            <div key={i} className="bg-white dark:bg-gray-800 rounded-lg p-4 animate-pulse">
               <div className="space-y-3">
-                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
               </div>
             </div>
           ))}
@@ -169,11 +169,11 @@ const Expenses = () => {
 
   if (error) {
     return (
-      <div className="min-h-full bg-gray-50 flex items-center justify-center">
+      <div className="min-h-full bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center p-8">
           <ApperIcon name="AlertCircle" size={48} className="mx-auto mb-4 text-red-500" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">Failed to load expenses</h3>
-          <p className="text-gray-600 mb-4">{error}</p>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Failed to load expenses</h3>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
           <Button onClick={loadExpenses}>Try Again</Button>
         </div>
       </div>
@@ -181,9 +181,9 @@ const Expenses = () => {
   }
 
   return (
-    <div className="min-h-full bg-gray-50">
+    <div className="min-h-full bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4">
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-4">
         <div className="flex items-center gap-4 mb-4">
           <Button
             variant="ghost"
@@ -194,8 +194,8 @@ const Expenses = () => {
             <ApperIcon name="ArrowLeft" size={20} />
           </Button>
           <div className="flex-1">
-            <h1 className="text-xl font-bold text-gray-900">Expenses</h1>
-            <p className="text-sm text-gray-600">{filteredExpenses.length} expenses</p>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">Expenses</h1>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{filteredExpenses.length} expenses</p>
           </div>
           <Button
             size="sm"
@@ -209,21 +209,21 @@ const Expenses = () => {
       </div>
 
       {/* Summary Cards */}
-      <div className="bg-white border-b border-gray-200 p-4">
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4">
         <div className="grid grid-cols-2 gap-4">
-          <div className="text-center p-3 bg-red-50 rounded-lg">
-            <p className="text-sm text-red-600 font-medium">Total Expenses</p>
-            <p className="text-lg font-bold text-red-700">₹{totalExpenses.toLocaleString()}</p>
+          <div className="text-center p-3 bg-red-50 dark:bg-red-900/20 rounded-lg">
+            <p className="text-sm text-red-600 dark:text-red-400 font-medium">Total Expenses</p>
+            <p className="text-lg font-bold text-red-700 dark:text-red-300">₹{totalExpenses.toLocaleString()}</p>
           </div>
-          <div className="text-center p-3 bg-blue-50 rounded-lg">
-            <p className="text-sm text-blue-600 font-medium">This Month</p>
-            <p className="text-lg font-bold text-blue-700">₹{monthlyExpenses.toLocaleString()}</p>
+          <div className="text-center p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+            <p className="text-sm text-blue-600 dark:text-blue-400 font-medium">This Month</p>
+            <p className="text-lg font-bold text-blue-700 dark:text-blue-300">₹{monthlyExpenses.toLocaleString()}</p>
           </div>
         </div>
       </div>
 
       {/* Filter Tabs */}
-      <div className="bg-white border-b border-gray-200 px-4">
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4">
         <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
           <motion.button
             whileTap={{ scale: 0.95 }}
@@ -233,7 +233,7 @@ const Expenses = () => {
               transition-colors duration-200
               ${filter === 'all'
                 ? 'bg-primary text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
               }
             `}
           >
@@ -250,10 +250,11 @@ const Expenses = () => {
                 transition-colors duration-200
                 ${filter === category.value
                   ? 'bg-primary text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }
               `}
             >
+              <ApperIcon name={category.value === 'Other' ? 'MoreHorizontal' : 'Tag'} size={16} />
               {category.label}
             </motion.button>
           ))}

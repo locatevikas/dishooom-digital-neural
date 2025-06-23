@@ -248,28 +248,37 @@ const Reports = () => {
   }, [dateRange, customStartDate, customEndDate]);
 
   return (
-    <motion.div
-      className="min-h-screen bg-gradient-to-br from-gray-50 to-white p-4 sm:p-6 lg:p-8"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-8"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-        >
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Business Intelligence
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Generate comprehensive reports and gain valuable insights into your business performance
-          </p>
-        </motion.div>
-
+    <div className="min-h-full bg-gray-50 dark:bg-gray-900">
+      {/* Header */}
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-4">
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white">Reports</h1>
+        <p className="text-sm text-gray-600 dark:text-gray-400">Generate and view business reports</p>
+      </div>
+      {/* Filter Tabs */}
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4">
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          {reportTypes.map(option => (
+            <motion.button
+              key={option.id}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => handleReportSelect(option.id)}
+              className={`
+                flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap
+                transition-colors duration-200
+                ${selectedReport === option.id
+                  ? 'bg-primary text-white'
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                }
+              `}
+            >
+              <ApperIcon name={option.icon} size={16} />
+              {option.title}
+            </motion.button>
+          ))}
+        </div>
+      </div>
+      {/* Content */}
+      <div className="p-4">
         {/* Report Type Selection */}
         {!selectedReport && (
           <motion.div
@@ -630,7 +639,7 @@ const Reports = () => {
           </motion.div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 };
 
