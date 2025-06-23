@@ -3,8 +3,11 @@ import { motion } from "framer-motion";
 import React from "react";
 import { routeArray, routes } from "@/config/routes";
 import ApperIcon from "@/components/ApperIcon";
+import { useTheme } from "./context/ThemeContext";
+
 const Layout = () => {
   const location = useLocation();
+  const { theme } = useTheme();
   
 // Create navigation items from routes configuration
   const allNavItems = routeArray.filter(route => route.showInNav !== false).map(route => ({
@@ -22,9 +25,9 @@ const Layout = () => {
   const desktopNavItems = allNavItems;
 
 return (
-    <div className="h-screen flex flex-col overflow-hidden bg-gray-50">
+    <div className={`h-screen flex flex-col overflow-hidden ${theme === 'dark' ? 'dark bg-gray-900 text-white' : 'bg-gray-50'}`}>
       {/* Desktop Header */}
-      <div className="hidden md:block bg-white border-b border-gray-200 px-6 py-3">
+      <div className="hidden md:block bg-white border-b border-gray-200 px-6 py-3 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex items-center justify-center max-w-7xl mx-auto">
           <span className="text-xl font-bold text-primary">Dishooom</span>
         </div>
@@ -36,7 +39,7 @@ return (
       </div>
 
       {/* Desktop Bottom Navigation */}
-      <nav className="hidden md:block bg-white border-t border-gray-200 px-6 py-3">
+      <nav className="hidden md:block bg-white border-t border-gray-200 px-6 py-3 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex items-center justify-center max-w-7xl mx-auto">
           <div className="flex space-x-8">
             {desktopNavItems.map(item => {
@@ -47,7 +50,7 @@ return (
                   to={item.path}
                   className={({ isActive }) => 
                     `flex flex-col items-center py-2 px-4 min-w-0 relative ${
-                      isActive ? 'text-primary' : 'text-gray-500'
+                      isActive ? 'text-primary' : 'text-gray-500 dark:text-gray-400'
                     } transition-colors hover:text-primary`
                   }
                 >
@@ -64,10 +67,10 @@ return (
                       <ApperIcon 
                         name={item.icon} 
                         size={20} 
-                        className={`mb-1 ${isActive ? 'text-primary' : 'text-gray-500'}`}
+                        className={`mb-1 ${isActive ? 'text-primary' : 'text-gray-500 dark:text-gray-400'}`}
                       />
                       <span className={`text-xs font-medium ${
-                        isActive ? 'text-primary' : 'text-gray-500'
+                        isActive ? 'text-primary' : 'text-gray-500 dark:text-gray-400'
                       }`}>
                         {item.label}
                       </span>
@@ -80,7 +83,7 @@ return (
         </div>
       </nav>
 {/* Mobile Bottom navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex justify-around py-2">
           {mobileNavItems.map(item => {
             const isActive = location.pathname === item.path;
@@ -90,7 +93,7 @@ return (
                 to={item.path}
                 className={({ isActive }) => 
                   `flex flex-col items-center py-2 px-3 min-w-0 flex-1 relative ${
-                    isActive ? 'text-primary' : 'text-gray-500'
+                    isActive ? 'text-primary' : 'text-gray-500 dark:text-gray-400'
                   } transition-colors`
                 }
               >
@@ -107,10 +110,10 @@ return (
                     <ApperIcon 
                       name={item.icon} 
                       size={20} 
-                      className={`mb-1 ${isActive ? 'text-primary' : 'text-gray-500'}`}
+                      className={`mb-1 ${isActive ? 'text-primary' : 'text-gray-500 dark:text-gray-400'}`}
                     />
                     <span className={`text-xs font-medium truncate ${
-                      isActive ? 'text-primary' : 'text-gray-500'
+                      isActive ? 'text-primary' : 'text-gray-500 dark:text-gray-400'
                     }`}>
                       {item.label}
                     </span>

@@ -33,37 +33,32 @@ const FloatingActionButton = () => {
     setIsOpen(false);
   };
 
-return (
+  return (
     <div className="fixed bottom-24 right-4 z-30">
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.5 }}
-            className="absolute bottom-16 right-0 space-y-3"
-          >
+          <div className="absolute bottom-16 right-0 space-y-3">
             {actions.map((action, index) => (
               <motion.button
                 key={action.path}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => handleActionClick(action.path)}
                 className={`
-                  flex items-center gap-3 px-4 py-3 ${action.color} text-white 
-                  rounded-full shadow-lg hover:shadow-xl transition-shadow
-                  min-w-max
+                  w-14 h-14 ${action.color} text-white 
+                  rounded-full shadow-lg hover:shadow-xl transition-all duration-200
+                  flex items-center justify-center
                 `}
+                title={action.label}
               >
-                <ApperIcon name={action.icon} size={20} />
-                <span className="text-sm font-medium">{action.label}</span>
+                <ApperIcon name={action.icon} size={24} />
               </motion.button>
             ))}
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
