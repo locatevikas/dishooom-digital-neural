@@ -161,14 +161,14 @@ const handleEdit = (product) => {
 
       {/* Filter Tabs */}
       <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4">
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+        <div className="flex gap-2 overflow-x-auto pb-2 pt-3 scrollbar-hide">
           {filterOptions.map(option => (
             <motion.button
               key={option.value}
               whileTap={{ scale: 0.95 }}
               onClick={() => setFilter(option.value)}
               className={`
-                flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap
+                flex items-center gap-2 px-4 py-3 rounded-full text-sm font-medium whitespace-nowrap
                 transition-colors duration-200
                 ${filter === option.value
                   ? 'bg-primary text-white'

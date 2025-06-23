@@ -101,7 +101,16 @@ const handleItemClick = (item) => {
                 className="p-4 dark:bg-gray-800 dark:border-gray-700"
               >
                 <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${item.color} dark:bg-opacity-20 dark:text-opacity-80`}>
+                  <div className={
+                    `w-12 h-12 rounded-lg flex items-center justify-center ${item.color} dark:bg-opacity-20 ` +
+                    (item.title === 'Expenses' ? 'dark:text-green-300' :
+                    item.title === 'Reports' ? 'dark:text-blue-300' :
+                    item.title === 'Settings' ? 'dark:text-gray-300' :
+                    item.title === 'User Management' ? 'dark:text-purple-300' :
+                    item.title === 'Backup & Sync' ? 'dark:text-indigo-300' :
+                    item.title === 'Help & Support' ? 'dark:text-orange-300' :
+                    '')
+                  }>
                     <ApperIcon name={item.icon} size={24} />
                   </div>
                   <div className="flex-1 min-w-0">
