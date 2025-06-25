@@ -18,8 +18,8 @@ const Button = ({
     primary: 'bg-primary text-white hover:bg-blue-700 active:bg-blue-800',
     secondary: 'bg-secondary text-white hover:bg-emerald-700 active:bg-emerald-800',
     accent: 'bg-accent text-white hover:bg-amber-600 active:bg-amber-700',
-    outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-white',
-    ghost: 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
+    outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-white dark:border-primary dark:text-primary dark:hover:bg-primary dark:hover:text-white',
+    ghost: 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white',
     danger: 'bg-red-500 text-white hover:bg-red-600 active:bg-red-700'
   };
 

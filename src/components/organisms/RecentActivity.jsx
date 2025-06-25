@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import ApperIcon from '@/components/ApperIcon';
 import Card from '@/components/atoms/Card';
 import salesOrderService from '@/services/api/salesOrderService';
@@ -8,6 +9,7 @@ import { format } from 'date-fns';
 const RecentActivity = () => {
   const [recentOrders, setRecentOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadRecentActivity = async () => {
@@ -27,6 +29,10 @@ const RecentActivity = () => {
 
     loadRecentActivity();
   }, []);
+
+  const handleOrderClick = (order) => {
+    navigate(`/sales/edit/${order.Id}`);
+  };
 
   if (loading) {
     return (
@@ -64,7 +70,8 @@ const RecentActivity = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
-              className="flex items-center gap-3 p-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              onClick={() => handleOrderClick(order)}
+              className="flex items-center gap-3 p-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors cursor-pointer"
             >
               <div className="w-10 h-10 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center">
                 <ApperIcon name="ShoppingCart" size={20} className="text-primary" />

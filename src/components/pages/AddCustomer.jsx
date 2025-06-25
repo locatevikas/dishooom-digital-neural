@@ -93,9 +93,9 @@ const AddCustomer = () => {
   };
 
   return (
-    <div className="min-h-full bg-gray-50">
+    <div className="min-h-full bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4">
+      <div className="bg-white border-b border-gray-200 px-4 py-4 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
@@ -106,8 +106,8 @@ const AddCustomer = () => {
             <ApperIcon name="ArrowLeft" size={20} />
           </Button>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Add Customer</h1>
-            <p className="text-sm text-gray-600">Add new customer or lead</p>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">Add Customer</h1>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Add new customer or lead</p>
           </div>
         </div>
       </div>
@@ -121,8 +121,8 @@ const AddCustomer = () => {
           className="space-y-6"
         >
           {/* Basic Information */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
-            <h3 className="font-semibold text-gray-900">Basic Information</h3>
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
+            <h3 className="font-semibold text-gray-900 dark:text-white">Basic Information</h3>
             
             <Input
               label="Customer Name"
@@ -183,8 +183,8 @@ const AddCustomer = () => {
           </div>
 
           {/* Sales Information */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
-            <h3 className="font-semibold text-gray-900">Sales Information</h3>
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
+            <h3 className="font-semibold text-gray-900 dark:text-white">Sales Information</h3>
             
             <div className="grid grid-cols-2 gap-4">
               <Select

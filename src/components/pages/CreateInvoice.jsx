@@ -162,9 +162,9 @@ const CreateInvoice = () => {
   };
 
   return (
-    <div className="min-h-full bg-gray-50">
+    <div className="min-h-full bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4">
+      <div className="bg-white border-b border-gray-200 px-4 py-4 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
@@ -190,7 +190,7 @@ const CreateInvoice = () => {
           className="space-y-6"
         >
           {/* Customer Information */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
             <h3 className="font-semibold text-gray-900">Customer Information</h3>
             
             <div className="grid grid-cols-2 gap-4">
@@ -224,9 +224,9 @@ const CreateInvoice = () => {
           </div>
 
           {/* Invoice Items */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-gray-900">Invoice Items</h3>
+              <h3 className="font-semibold text-gray-900 dark:text-white">Invoice Items</h3>
               <Button
                 type="button"
                 variant="outline"
@@ -319,7 +319,7 @@ const CreateInvoice = () => {
           </div>
 
           {/* Tax Configuration */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
             <h3 className="font-semibold text-gray-900">Tax Configuration</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>

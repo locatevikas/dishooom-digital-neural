@@ -11,7 +11,7 @@ const Input = forwardRef(({
   return (
     <div className="space-y-1">
       {label && (
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
           {label}
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
@@ -23,6 +23,7 @@ const Input = forwardRef(({
           w-full px-4 py-3 border border-gray-300 rounded-lg
           focus:ring-2 focus:ring-primary focus:border-primary
           transition-colors duration-200
+          dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:placeholder-gray-400
           ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}
           ${className}
         `.trim()}

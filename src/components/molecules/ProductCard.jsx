@@ -17,7 +17,7 @@ const ProductCard = ({ product, onEdit, onDelete, onStockUpdate }) => {
   const stockPercentage = Math.min((product.currentStock / (product.minStock * 2)) * 100, 100);
 
   return (
-    <Card className="p-4 hover:shadow-md transition-shadow">
+    <Card className="p-4 hover:shadow-md transition-shadow dark:bg-gray-800">
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-gray-900 dark:text-white truncate">{product.name}</h3>

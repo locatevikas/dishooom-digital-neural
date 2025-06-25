@@ -146,21 +146,21 @@ const CreateSalesOrder = () => {
   };
 
   return (
-    <div className="min-h-full bg-gray-50">
+    <div className="min-h-full bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4">
+      <div className="bg-white border-b border-gray-200 px-4 py-4 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigate('/sales')}
+            onClick={() => navigate('/sales-orders')}
             className="p-2"
           >
             <ApperIcon name="ArrowLeft" size={20} />
           </Button>
-<div>
-            <h1 className="text-xl font-bold text-gray-900">Create Sales Order</h1>
-            <p className="text-sm text-gray-600">Create new sales order for tracking</p>
+          <div>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">Create Sales Order</h1>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Add a new sales order</p>
           </div>
         </div>
       </div>
@@ -174,8 +174,8 @@ const CreateSalesOrder = () => {
           className="space-y-6"
         >
           {/* Customer Information */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
-            <h3 className="font-semibold text-gray-900">Customer Information</h3>
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
+            <h3 className="font-semibold text-gray-900 dark:text-white">Customer Information</h3>
             
             <div className="grid grid-cols-2 gap-4">
               <Select
@@ -200,9 +200,9 @@ const CreateSalesOrder = () => {
           </div>
 
           {/* Order Items */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-gray-900">Order Items</h3>
+              <h3 className="font-semibold text-gray-900 dark:text-white">Order Items</h3>
               <Button
                 type="button"
                 variant="outline"
@@ -221,7 +221,7 @@ const CreateSalesOrder = () => {
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="border border-gray-200 rounded-lg p-4"
+                  className="border border-gray-200 rounded-lg p-4 dark:bg-gray-800"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-sm font-medium text-gray-700">Item {index + 1}</span>
@@ -246,6 +246,7 @@ const CreateSalesOrder = () => {
                       options={productOptions}
                       placeholder="Select product"
                       required
+                      className="dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
                     />
 
                     <div className="grid grid-cols-3 gap-3">
@@ -258,7 +259,7 @@ const CreateSalesOrder = () => {
                           value={item.quantity}
                           onChange={(e) => handleItemChange(index, 'quantity', parseInt(e.target.value))}
                           min="1"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
                         />
                       </div>
 
@@ -272,7 +273,7 @@ const CreateSalesOrder = () => {
                           onChange={(e) => handleItemChange(index, 'unitPrice', parseFloat(e.target.value))}
                           min="0"
                           step="0.01"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
                         />
                       </div>
 
@@ -284,7 +285,7 @@ const CreateSalesOrder = () => {
                           type="text"
                           value={item.total.toFixed(2)}
                           readOnly
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
                         />
                       </div>
                     </div>
@@ -295,8 +296,8 @@ const CreateSalesOrder = () => {
           </div>
 
           {/* Order Summary */}
-          <div className="bg-white rounded-lg p-4">
-            <h3 className="font-semibold text-gray-900 mb-4">Order Summary</h3>
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
+            <h3 className="font-semibold text-gray-900 dark:text-white">Order Summary</h3>
             <div className="flex justify-between items-center text-lg">
               <span className="font-medium">Total Amount:</span>
               <span className="font-bold text-primary">₹{calculateTotal().toLocaleString()}</span>

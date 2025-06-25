@@ -263,7 +263,7 @@ const Expenses = () => {
 
       {/* Add Expense Form */}
       {showAddForm && (
-        <div className="bg-white border-b border-gray-200 p-4">
+        <div className="bg-white border-b border-gray-200 p-4 dark:bg-gray-800 dark:border-gray-700">
           <motion.form
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
@@ -271,7 +271,7 @@ const Expenses = () => {
             className="space-y-4"
           >
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-gray-900">Add New Expense</h3>
+              <h3 className="font-semibold text-gray-900 dark:text-white">Add New Expense</h3>
               <Button
                 type="button"
                 variant="ghost"
@@ -357,8 +357,8 @@ const Expenses = () => {
         {filteredExpenses.length === 0 ? (
           <div className="text-center py-12">
             <ApperIcon name="Receipt" size={64} className="mx-auto mb-4 text-gray-300" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No expenses found</h3>
-            <p className="text-gray-600 mb-6">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No expenses found</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
               {filter === 'all' 
                 ? "Start by adding your first expense"
                 : "No expenses match the current filter"
@@ -394,7 +394,7 @@ const Expenses = () => {
                           {format(new Date(expense.date), 'MMM dd, yyyy')}
                         </span>
                       </div>
-                      <h3 className="font-semibold text-gray-900 mb-1">{expense.description}</h3>
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{expense.description}</h3>
                       {expense.vendor && (
                         <p className="text-sm text-gray-600">{expense.vendor}</p>
                       )}

@@ -180,7 +180,7 @@ const EditSalesOrder = () => {
 
   if (loading) {
     return (
-      <div className="min-h-full bg-gray-50">
+      <div className="min-h-full bg-gray-50 dark:bg-gray-900">
         <div className="bg-white border-b border-gray-200 px-4 py-4">
           <div className="h-6 bg-gray-200 rounded w-32 animate-pulse"></div>
         </div>
@@ -207,9 +207,9 @@ const EditSalesOrder = () => {
   }
 
   return (
-    <div className="min-h-full bg-gray-50">
+    <div className="min-h-full bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4">
+      <div className="bg-white border-b border-gray-200 px-4 py-4 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex items-center gap-3">
           <motion.button
             whileTap={{ scale: 0.95 }}
@@ -219,8 +219,8 @@ const EditSalesOrder = () => {
             <ApperIcon name="ArrowLeft" size={20} />
           </motion.button>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Edit Sales Order</h1>
-            <p className="text-sm text-gray-600">Update order details</p>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">Edit Sales Order</h1>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Update order details</p>
           </div>
         </div>
       </div>
@@ -229,8 +229,8 @@ const EditSalesOrder = () => {
       <div className="p-4">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Customer Selection */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
-            <h2 className="text-lg font-semibold text-gray-900">Customer Information</h2>
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Customer Information</h2>
             <Select
               label="Customer"
               name="customerId"
@@ -248,9 +248,9 @@ const EditSalesOrder = () => {
           </div>
 
           {/* Items */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">Order Items</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Order Items</h2>
               <Button type="button" onClick={addItem} size="sm">
                 <ApperIcon name="Plus" size={16} className="mr-2" />
                 Add Item
@@ -258,9 +258,9 @@ const EditSalesOrder = () => {
             </div>
             
             {orderData.items.map((item, index) => (
-              <div key={index} className="border border-gray-200 rounded-lg p-4 space-y-3">
+              <div key={index} className="border border-gray-200 rounded-lg p-4 space-y-3 dark:bg-gray-800">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-medium text-gray-900">Item {index + 1}</h3>
+                  <h3 className="font-medium text-gray-900 dark:text-white">Item {index + 1}</h3>
                   <motion.button
                     type="button"
                     whileTap={{ scale: 0.95 }}
@@ -331,8 +331,8 @@ const EditSalesOrder = () => {
           </div>
 
           {/* Order Summary & Payment */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
-            <h2 className="text-lg font-semibold text-gray-900">Order Summary</h2>
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Order Summary</h2>
             
             <div className="flex justify-between items-center py-2 border-t border-gray-200">
               <span className="text-lg font-semibold">Total Amount:</span>
@@ -362,7 +362,7 @@ const EditSalesOrder = () => {
                 value={orderData.notes}
                 onChange={handleInputChange}
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
                 placeholder="Add any notes for this order..."
               />
             </div>

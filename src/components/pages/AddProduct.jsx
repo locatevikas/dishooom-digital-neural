@@ -101,21 +101,21 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="min-h-full bg-gray-50">
+    <div className="min-h-full bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4">
+      <div className="bg-white border-b border-gray-200 px-4 py-4 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigate('/inventory')}
+            onClick={() => navigate('/products')}
             className="p-2"
           >
             <ApperIcon name="ArrowLeft" size={20} />
           </Button>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Add Product</h1>
-            <p className="text-sm text-gray-600">Add new product to inventory</p>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">Add Product</h1>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Add new product to inventory</p>
           </div>
         </div>
       </div>
@@ -129,8 +129,8 @@ const AddProduct = () => {
           className="space-y-6"
         >
           {/* Basic Information */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
-            <h3 className="font-semibold text-gray-900">Basic Information</h3>
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
+            <h3 className="font-semibold text-gray-900 dark:text-white">Basic Information</h3>
             
             <Input
               label="Product Name"
@@ -172,15 +172,15 @@ const AddProduct = () => {
                 onChange={handleInputChange}
                 className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
               />
-              <label htmlFor="isWhiteLabelled" className="text-sm font-medium text-gray-700">
+              <label htmlFor="isWhiteLabelled" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 White Labelled Product
               </label>
             </div>
           </div>
 
           {/* Inventory Details */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
-            <h3 className="font-semibold text-gray-900">Inventory Details</h3>
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
+            <h3 className="font-semibold text-gray-900 dark:text-white">Inventory Details</h3>
             
             <div className="grid grid-cols-2 gap-4">
               <Input
@@ -235,8 +235,8 @@ const AddProduct = () => {
           </div>
 
           {/* Pricing */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
-            <h3 className="font-semibold text-gray-900">Pricing</h3>
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
+            <h3 className="font-semibold text-gray-900 dark:text-white">Pricing</h3>
             
             <div className="grid grid-cols-2 gap-4">
               <Input

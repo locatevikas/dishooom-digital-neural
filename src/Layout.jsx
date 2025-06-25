@@ -60,7 +60,7 @@ const Layout = () => {
           </div>
           {/* Brand Name Centered */}
           <div className="flex-1 flex justify-center">
-            <span className="text-xl font-bold text-primary">{businessName}</span>
+            <span className="text-xl font-bold text-primary dark:text-white">{businessName}</span>
           </div>
           {/* Dark/Light Mode Toggle Right */}
           <div className="flex items-center justify-end min-w-[56px]">
@@ -113,7 +113,7 @@ const Layout = () => {
         </div>
         {/* Brand Name Centered */}
         <div className="flex-1 flex justify-center">
-          <span className="text-lg font-bold text-primary">{businessName}</span>
+          <span className="text-lg font-bold text-primary dark:text-white">{businessName}</span>
         </div>
         {/* Dark/Light Mode Toggle Right */}
         <div className="flex items-center justify-end min-w-[44px]">

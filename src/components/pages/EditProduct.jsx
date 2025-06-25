@@ -149,9 +149,9 @@ const EditProduct = () => {
   }
 
   return (
-    <div className="min-h-full bg-gray-50">
+    <div className="min-h-full bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4">
+      <div className="bg-white border-b border-gray-200 px-4 py-4 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
@@ -177,8 +177,8 @@ const EditProduct = () => {
           className="space-y-6"
         >
           {/* Basic Information */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
-            <h3 className="font-semibold text-gray-900">Basic Information</h3>
+          <div className="bg-white rounded-lg p-4 space-y-4 dark:bg-gray-800">
+            <h3 className="font-semibold text-gray-900 dark:text-white">Basic Information</h3>
             
             <Input
               label="Product Name"
@@ -220,7 +220,7 @@ const EditProduct = () => {
                 onChange={handleInputChange}
                 className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
               />
-              <label htmlFor="isWhiteLabelled" className="text-sm font-medium text-gray-700">
+              <label htmlFor="isWhiteLabelled" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 White Labelled Product
               </label>
             </div>

@@ -287,8 +287,8 @@ const Reports = () => {
             transition={{ delay: 0.2 }}
           >
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-2">Choose Report Type</h2>
-              <p className="text-gray-600">Select the type of report you want to generate</p>
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Choose Report Type</h2>
+              <p className="text-gray-600 dark:text-gray-400">Select the type of report you want to generate</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -309,8 +309,8 @@ const Reports = () => {
                       <div className={`w-16 h-16 ${report.color} rounded-2xl flex items-center justify-center mb-4 shadow-lg`}>
                         <ApperIcon name={report.icon} size={32} className="text-white" />
                       </div>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">{report.title}</h3>
-                      <p className="text-gray-600 mb-4 leading-relaxed">{report.description}</p>
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{report.title}</h3>
+                      <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">{report.description}</p>
                       <div className="flex flex-wrap gap-2">
                         {report.metrics.map((metric, idx) => (
                           <span
@@ -337,7 +337,7 @@ const Reports = () => {
             transition={{ duration: 0.3 }}
           >
 {/* Report Header */}
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6 bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-4 mb-4 lg:mb-0">
                 <Button
                   variant="ghost"
@@ -353,10 +353,10 @@ const Reports = () => {
                   <ApperIcon name={reportTypes.find(r => r.id === selectedReport)?.icon} size={24} className="text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                     {reportTypes.find(r => r.id === selectedReport)?.title}
                   </h2>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-400">
                     {reportTypes.find(r => r.id === selectedReport)?.description}
                   </p>
                 </div>
@@ -366,8 +366,8 @@ const Reports = () => {
                 {/* Date Selection */}
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-2">
-                    <ApperIcon name="Calendar" size={16} className="text-gray-600" />
-                    <span className="text-sm font-medium text-gray-700">Date:</span>
+                    <ApperIcon name="Calendar" size={16} className="text-gray-700 dark:text-gray-300" />
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Date:</span>
                   </div>
                   <Select
                     value={dateRange}
@@ -386,7 +386,7 @@ const Reports = () => {
                 {dateRange === 'custom' && (
                   <div className="flex items-center gap-2">
                     <div className="flex flex-col">
-                      <label className="text-xs text-gray-600 mb-1">Start Date</label>
+                      <label className="text-xs text-gray-700 dark:text-gray-300 mb-1">Start Date</label>
                       <DatePicker
                         selected={customStartDate ? new Date(customStartDate) : null}
                         onChange={(date) => setCustomStartDate(date ? date.toISOString().split('T')[0] : '')}
@@ -398,7 +398,7 @@ const Reports = () => {
                     </div>
                     <span className="text-gray-400 self-end pb-2">to</span>
                     <div className="flex flex-col">
-                      <label className="text-xs text-gray-600 mb-1">End Date</label>
+                      <label className="text-xs text-gray-700 dark:text-gray-300 mb-1">End Date</label>
                       <DatePicker
                         selected={customEndDate ? new Date(customEndDate) : null}
                         onChange={(date) => setCustomEndDate(date ? date.toISOString().split('T')[0] : '')}
@@ -426,7 +426,7 @@ const Reports = () => {
                   </Button>
                   
                   {showFilters && (
-                    <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                    <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 z-50">
                       <div className="p-2">
                         {exportFormats.map((format) => (
                           <Button
@@ -473,8 +473,8 @@ const Reports = () => {
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
                     <div className="w-8 h-8 border-3 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Generating Report</h3>
-                  <p className="text-gray-600">Please wait while we analyze your data...</p>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Generating Report</h3>
+                  <p className="text-gray-600 dark:text-gray-400">Please wait while we analyze your data...</p>
                 </div>
               </Card>
             )}
@@ -486,12 +486,12 @@ const Reports = () => {
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
                     <ApperIcon name="AlertCircle" size={32} className="text-red-600" />
                   </div>
-                  <h3 className="text-lg font-semibold text-red-900 mb-2">Report Generation Failed</h3>
-                  <p className="text-red-700 mb-4">{error}</p>
+                  <h3 className="text-lg font-semibold text-red-900 dark:text-white mb-2">Report Generation Failed</h3>
+                  <p className="text-red-700 dark:text-red-300 mb-4">{error}</p>
                   <Button
                     variant="outline"
                     onClick={() => loadReportData(selectedReport)}
-                    className="border-red-300 text-red-700 hover:bg-red-100"
+                    className="border-red-300 text-red-700 dark:text-red-300 hover:bg-red-100"
                   >
                     <ApperIcon name="RefreshCw" size={16} />
                     Try Again
@@ -539,10 +539,10 @@ const Reports = () => {
                     <Card className="border border-gray-200">
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-6">
-                          <ApperIcon name="BarChart3" size={24} className="text-gray-700" />
-                          <h3 className="text-xl font-semibold text-gray-900">{reportData.chartTitle}</h3>
+                          <ApperIcon name="BarChart3" size={24} className="text-gray-700 dark:text-gray-300" />
+                          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{reportData.chartTitle}</h3>
                         </div>
-                        <div className="bg-gray-50 rounded-xl p-4">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-4">
                           <Chart
                             options={getChartOptions()}
                             series={reportData.chartData.series || []}
@@ -565,10 +565,10 @@ const Reports = () => {
                     <Card className="border border-gray-200">
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-6">
-                          <ApperIcon name="Table" size={24} className="text-gray-700" />
-                          <h3 className="text-xl font-semibold text-gray-900">{reportData.tableTitle}</h3>
+                          <ApperIcon name="Table" size={24} className="text-gray-700 dark:text-gray-300" />
+                          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{reportData.tableTitle}</h3>
                         </div>
-                        <div className="overflow-x-auto bg-gray-50 rounded-xl">
+                        <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-xl">
                           <table className="min-w-full">
                             <thead>
                               <tr className="border-b border-gray-200">
@@ -582,7 +582,7 @@ const Reports = () => {
                                 ))}
                               </tr>
                             </thead>
-                            <tbody className="bg-white">
+                            <tbody className="bg-white dark:bg-gray-800">
                               {reportData.tableData.rows?.map((row, rowIndex) => (
                                 <tr
                                   key={rowIndex}
@@ -591,7 +591,7 @@ const Reports = () => {
                                   {row.map((cell, cellIndex) => (
                                     <td
                                       key={cellIndex}
-                                      className="px-6 py-4 text-sm text-gray-900"
+                                      className="px-6 py-4 text-sm text-gray-900 dark:text-white"
                                     >
                                       {cell}
                                     </td>
@@ -616,14 +616,14 @@ const Reports = () => {
                     <Card className="border border-gray-200">
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-6">
-                          <ApperIcon name="FileText" size={24} className="text-gray-700" />
-<h3 className="text-xl font-semibold text-gray-900">Executive Summary</h3>
+                          <ApperIcon name="FileText" size={24} className="text-gray-700 dark:text-gray-300" />
+                          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Executive Summary</h3>
                         </div>
-                        <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-xl p-6 border border-blue-100">
-                          <div className="prose max-w-none">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:bg-gray-700">
+                          <div className="prose max-w-none text-white">
                             {reportData.summary.split('\n').map((line, index) => (
                               line.trim() ? (
-                                <p key={index} className="text-gray-800 mb-4 leading-relaxed font-medium text-sm">
+                                <p key={index} className="text-gray-800 dark:text-white mb-4 leading-relaxed font-medium text-sm">
                                   {line.trim()}
                                 </p>
                               ) : null
