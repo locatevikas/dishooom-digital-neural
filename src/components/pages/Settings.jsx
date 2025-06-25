@@ -284,7 +284,7 @@ const Settings = () => {
 
                   {/* Logo Upload */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Logo (max 500x500px)</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Logo (max 1MB)</label>
                     {formData.profile?.logo && (
                       <div className="mb-2">
                         <img
@@ -300,24 +300,15 @@ const Settings = () => {
                       onChange={async (e) => {
                         const file = e.target.files[0];
                         if (!file) return;
-                        if (file.size > 2 * 1024 * 1024) {
-                          toast.error('File size should be less than 2MB');
+                        if (file.size > 1 * 1024 * 1024) {
+                          toast.error('File size should be less than 1MB');
                           return;
                         }
-                        const img = new window.Image();
-                        img.onload = () => {
-                          if (img.width > 500 || img.height > 500) {
-                            toast.error('Logo must be 500x500px or smaller');
-                          } else {
-                            const reader = new FileReader();
-                            reader.onload = (ev) => {
-                              updateFormData('profile', 'logo', ev.target.result);
-                            };
-                            reader.readAsDataURL(file);
-                          }
+                        const reader = new FileReader();
+                        reader.onload = (ev) => {
+                          updateFormData('profile', 'logo', ev.target.result);
                         };
-                        img.onerror = () => toast.error('Invalid image file');
-                        img.src = URL.createObjectURL(file);
+                        reader.readAsDataURL(file);
                       }}
                       className="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 dark:file:bg-primary/20 dark:file:text-primary dark:hover:file:bg-primary/30"
                     />
